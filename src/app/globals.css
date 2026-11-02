@@ -169,3 +169,14 @@ body {
   -webkit-mask-composite: xor;
   pointer-events: none;
 }
+
+/* =============================================================================
+   Hero video fade-in keyframe
+   Used by VideoBackground in prisma-hero.tsx via inline style animation.
+   CSS animations are independent of JS event timing, making them the most
+   reliable way to fade-in autoplay video.
+   ============================================================================= */
+@keyframes videoFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

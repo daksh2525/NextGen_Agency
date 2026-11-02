@@ -6,6 +6,8 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
   img-src 'self' data: blob: https://www.google-analytics.com;
+  worker-src 'self' blob:;
+  media-src 'self';
   connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com;
   frame-src 'none';
   object-src 'none';

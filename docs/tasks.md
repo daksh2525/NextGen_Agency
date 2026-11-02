@@ -1,15 +1,15 @@
 # Development Roadmap and Task Tracking
 **NextGen Agency — Software Development Agency Website**
-**Version:** 1.0.0
-**Status:** Phase 1 — Not Started
-**Last Updated:** 2026-11-02
+**Version:** 2.0.0
+**Status:** Phase 3 — Polish & Optimization (ACTIVE)
+**Last Updated:** 2026-11-02 — Full codebase audit complete. Build passes. Docs synced.
 
 ---
 
 ## Legend
 - [ ] Pending
 - [~] In Progress
-- [x] Completed
+- [x] Completed & Verified
 - [!] Blocked
 
 **Priority:** P0 = Critical / P1 = High / P2 = Medium / P3 = Low
@@ -17,705 +17,182 @@
 ---
 
 ## Phase 1 — Foundation
-**Goal:** Initialize the project, configure tooling, establish design tokens and global styles.
-**Status:** ⏳ Not Started
-
----
+**Status:** ✅ COMPLETE
 
 ### 1.1 Project Initialization
-
-#### Task 1.1.1 — Initialize Next.js Project
-- **Description:** Run `pnpm create next-app@latest` with TypeScript, Tailwind CSS, App Router, ESLint, and src/ directory enabled.
-- **Priority:** P0
-- **Dependencies:** None
-- **Acceptance Criteria:**
-  - `package.json` exists with Next.js 14+
-  - TypeScript is configured (`tsconfig.json`)
-  - Tailwind CSS is configured (`tailwind.config.ts`, `globals.css`)
-  - `src/app/page.tsx` and `src/app/layout.tsx` exist
-  - `pnpm dev` starts the development server without errors
-- [ ] Pending
-
-#### Task 1.1.2 — Configure pnpm as Package Manager
-- **Description:** Set pnpm as the project package manager. Verify lockfile (`pnpm-lock.yaml`) is generated.
-- **Priority:** P0
-- **Dependencies:** 1.1.1
-- **Acceptance Criteria:**
-  - `pnpm-lock.yaml` exists
-  - `.npmrc` configured if needed
-  - No `package-lock.json` or `yarn.lock` in the repo
-- [ ] Pending
-
-#### Task 1.1.3 — Install Core Dependencies
-- **Description:** Install all approved dependencies: `framer-motion`, `lucide-react`, `react-hook-form`, `zod`, `@hookform/resolvers`, `clsx`, `tailwind-merge`, `class-variance-authority`.
-- **Priority:** P0
-- **Dependencies:** 1.1.1, 1.1.2
-- **Acceptance Criteria:**
-  - All packages installed without dependency conflicts
-  - No unused packages in `package.json`
-  - `pnpm build` completes without errors
-- [ ] Pending
-
-#### Task 1.1.4 — Configure ESLint and Prettier
-- **Description:** Set up ESLint with Next.js config, import ordering plugin, and Prettier with project-specific config.
-- **Priority:** P0
-- **Dependencies:** 1.1.1
-- **Acceptance Criteria:**
-  - `.eslintrc.json` configured
-  - `.prettierrc` configured
-  - `pnpm lint` runs without errors on a fresh codebase
-  - VSCode/editor respects configuration (via `.vscode/settings.json`)
-- [ ] Pending
-
-#### Task 1.1.5 — Configure Husky and lint-staged
-- **Description:** Set up pre-commit hooks to run ESLint and Prettier before every commit.
-- **Priority:** P1
-- **Dependencies:** 1.1.4
-- **Acceptance Criteria:**
-  - Husky installed and `.husky/pre-commit` hook exists
-  - lint-staged configured in `package.json`
-  - Committing code with lint errors is blocked
-- [ ] Pending
-
-#### Task 1.1.6 — Initialize Git Repository
-- **Description:** Initialize git, create `.gitignore` (ignoring `.env.local`, `.next/`, `node_modules/`), make initial commit.
-- **Priority:** P0
-- **Dependencies:** 1.1.1
-- **Acceptance Criteria:**
-  - `git log` shows initial commit
-  - `.gitignore` correctly ignores sensitive and build files
-  - `main` branch exists
-- [ ] Pending
-
----
+- [x] **1.1.1** — Next.js 16.4.3 initialized (App Router, TypeScript, Tailwind v4, ESLint, src/ dir, `@/*` alias)
+- [x] **1.1.2** — pnpm 12.16.1 configured as package manager (`pnpm-lock.yaml` exists)
+- [x] **1.1.3** — All core dependencies installed: framer-motion, lucide-react, react-hook-form, zod, @hookform/resolvers, clsx, tailwind-merge, class-variance-authority, resend
+- [ ] **1.1.4** — ESLint and Prettier fully configured (ESLint exists via next, Prettier not configured)
+- [ ] **1.1.5** — Husky + lint-staged (not installed — P3, optional for MVP)
+- [ ] **1.1.6** — Git repository initialized (not verified — check manually)
 
 ### 1.2 Folder Structure
+- [x] **1.2.1** — Full directory structure created: `src/components/{atoms,molecules,organisms}`, `src/data/`, `src/hooks/`, `src/lib/`, `src/types/`
+- [ ] **1.2.2** — `public/images/` subdirectories missing (og/, team/, services/, portfolio/ not created)
 
-#### Task 1.2.1 — Create Full Directory Structure
-- **Description:** Create all directories defined in `docs/architecture.md` Section 12: `src/components/{atoms,molecules,organisms}`, `src/data/`, `src/hooks/`, `src/lib/`, `src/types/`, `public/images/{hero,services,portfolio,team,technologies,og}/`.
-- **Priority:** P0
-- **Dependencies:** 1.1.1
-- **Acceptance Criteria:**
-  - All directories exist (even if empty)
-  - Each directory has a `.gitkeep` or a placeholder file to be tracked by git
-- [ ] Pending
+### 1.3 Design System & Configuration
+- [x] **1.3.1** — Tailwind v4 `@theme` design tokens in `src/app/globals.css` (all brand colors, fonts, shadows, radii)
+- [x] **1.3.2** — `next.config.ts` configured (security headers, CSP, redirects)
+- [x] **1.3.3** — Fonts: Manrope (headings) + Inter (body) loaded via `next/font/google` in `layout.tsx`
+- [x] **1.3.4** — `.env.example` and `.env.local` created
+- [x] **1.3.5** — Global utility classes defined (`.container-site`, `.section-padding`, `.grid-bg`, `.text-gradient`, `.noise-bg`, `.gradient-border`)
 
-#### Task 1.2.2 — Create Data File Scaffolds
-- **Description:** Create empty but typed TypeScript data files in `/src/data/`: `services.ts`, `portfolio.ts`, `team.ts`, `technologies.ts`, `industries.ts`, `testimonials.ts`, `faqs.ts`, `navigation.ts`, `metadata.ts`.
-- **Priority:** P0
-- **Dependencies:** 1.2.1, 1.3.2
-- **Acceptance Criteria:**
-  - All files exist with exported arrays/objects
-  - Types imported from `/src/types/`
-  - TypeScript compiles without errors
-- [ ] Pending
+### 1.4 TypeScript Types
+- [x] **1.4.1** — `src/types/common.ts` — NavLink, NavItem, Benefit, ProcessStep, SeoMeta
+- [x] **1.4.2** — `src/types/service.ts` — Service interface
+- [x] **1.4.3** — `src/types/portfolio.ts` — Project, CaseStudy interfaces
+- [x] **1.4.4** — `src/types/team.ts` — TeamMember interface
 
-#### Task 1.2.3 — Create Type Definition Files
-- **Description:** Create TypeScript interface files in `/src/types/`: `service.ts`, `portfolio.ts`, `team.ts`, `common.ts`.
-- **Priority:** P0
-- **Dependencies:** 1.2.1
-- **Acceptance Criteria:**
-  - All interface files exist and export correct types
-  - `service.ts` exports `Service`, `ProcessStep`, `Benefit` interfaces
-  - `portfolio.ts` exports `Project`, `CaseStudy` interfaces
-  - `team.ts` exports `TeamMember` interface
-  - `common.ts` exports shared utility types
-- [ ] Pending
+### 1.5 Data Files
+- [x] **1.5.1** — `src/data/services.ts` — 11 services with full data (slugs, descriptions, deliverables, technologies, benefits, process)
+- [x] **1.5.2** — `src/data/navigation.ts` — Nav items + footer links
+- [x] **1.5.3** — `src/data/faqs.ts` — 8 real FAQ entries
+- [x] **1.5.4** — `src/data/industries.ts` — 8 industries
+- [x] **1.5.5** — `src/data/technologies.ts` — 6 tech categories
+- [x] **1.5.6** — `src/data/team.ts` — 2 placeholder entries (clearly marked TODO)
+- [x] **1.5.7** — `src/data/portfolio.ts` — Empty array (correct — no fake projects)
+- [x] **1.5.8** — `src/data/testimonials.ts` — Empty array (correct — no fake testimonials)
 
----
-
-### 1.3 Design Tokens and Configuration
-
-#### Task 1.3.1 — Configure Tailwind Design System
-- **Description:** Extend `tailwind.config.ts` with all custom values from `docs/design.md` Section 22: colors, fonts, box shadows, border radius, font sizes.
-- **Priority:** P0
-- **Dependencies:** 1.1.1
-- **Acceptance Criteria:**
-  - All brand colors available as Tailwind utility classes (`bg-charcoal`, `text-orange`, etc.)
-  - Custom font sizes (`text-display-2xl`, etc.) available
-  - Custom shadows available
-  - TypeScript does not throw errors on config file
-- [ ] Pending
-
-#### Task 1.3.2 — Configure Global Styles
-- **Description:** Set up `src/app/globals.css` with: CSS custom properties, Tailwind base/components/utilities directives, global reset overrides, selection color, scrollbar styling, focus ring styles.
-- **Priority:** P0
-- **Dependencies:** 1.3.1
-- **Acceptance Criteria:**
-  - CSS custom properties defined for all design tokens
-  - Body font applied globally
-  - Selection color matches orange accent
-  - Smooth scroll behaviour enabled
-- [ ] Pending
-
-#### Task 1.3.3 — Configure Fonts
-- **Description:** Configure `next/font/google` for Manrope (headings) and Inter (body). Apply font CSS variables to `<html>` element in `layout.tsx`.
-- **Priority:** P0
-- **Dependencies:** 1.3.1, 1.1.1
-- **Acceptance Criteria:**
-  - Fonts load correctly in browser
-  - CSS variables `--font-manrope` and `--font-inter` available
-  - No FOUT (Flash of Unstyled Text) — fonts preloaded correctly
-  - Only required weights loaded
-- [ ] Pending
-
-#### Task 1.3.4 — Create Animation Variants Library
-- **Description:** Create `/src/lib/animations.ts` with all standard Framer Motion variants: `fadeUp`, `fadeIn`, `scaleIn`, `staggerContainer`, `slideInLeft`, `slideInRight`.
-- **Priority:** P0
-- **Dependencies:** 1.1.3
-- **Acceptance Criteria:**
-  - File exports all variants as typed Framer Motion `Variants` objects
-  - Spring configs exported
-  - `prefers-reduced-motion` helper exported
-- [ ] Pending
-
-#### Task 1.3.5 — Create Utility Functions
-- **Description:** Create `/src/lib/utils.ts` with: `cn()` (Tailwind class merge), `generateSlug()`, `truncate()`, and any other shared utilities.
-- **Priority:** P0
-- **Dependencies:** 1.1.3
-- **Acceptance Criteria:**
-  - `cn()` correctly merges Tailwind classes using `clsx` + `tailwind-merge`
-  - All utilities are typed
-  - TypeScript compiles without errors
-- [ ] Pending
-
----
-
-### 1.4 Root Layout and Metadata
-
-#### Task 1.4.1 — Configure Root Layout
-- **Description:** Set up `src/app/layout.tsx` with: font variables, `<html>` lang attribute (`en`), Providers wrapper, Navbar import (placeholder), Footer import (placeholder), Google Analytics script (conditional).
-- **Priority:** P0
-- **Dependencies:** 1.3.3
-- **Acceptance Criteria:**
-  - Root layout renders without errors
-  - `<html lang="en">` set
-  - Font classes applied to `<body>`
-- [ ] Pending
-
-#### Task 1.4.2 — Configure Site Metadata
-- **Description:** Create `/src/lib/seo.ts` with helper functions. Configure default metadata in `layout.tsx` and page-level metadata in `page.tsx` files. Include Open Graph and Twitter Card meta.
-- **Priority:** P0
-- **Dependencies:** 1.4.1, 1.2.2
-- **Acceptance Criteria:**
-  - `<title>` and `<meta name="description">` render correctly
-  - Open Graph tags present
-  - Twitter Card tags present
-  - Canonical URL set
-- [ ] Pending
-
-#### Task 1.4.3 — Create .env Files
-- **Description:** Create `.env.example` with all required variable names (no real values) and `.env.local` (gitignored) with local development values.
-- **Priority:** P0
-- **Dependencies:** None
-- **Acceptance Criteria:**
-  - `.env.example` committed to repo
-  - `.env.local` in `.gitignore`
-  - `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_SITE_NAME` configured
-- [ ] Pending
-
----
-
-**Phase 1 Completion Criteria:** `pnpm dev` runs without errors, design tokens are active, folder structure is complete, git is initialized with correct `.gitignore`.
+### 1.6 Lib & Hooks
+- [x] **1.6.1** — `src/lib/utils.ts` — cn(), generateSlug(), truncate(), formatDate()
+- [x] **1.6.2** — `src/lib/animations.ts` — All Framer Motion variants and spring configs
+- [x] **1.6.3** — `src/lib/validations.ts` — Zod contact form schema (Zod v4 API compatible)
+- [x] **1.6.4** — `src/lib/seo.ts` — generatePageMetadata() helper
+- [x] **1.6.5** — `src/hooks/useReducedMotion.ts` — Wraps framer-motion's useReducedMotion (fixed: was incorrectly importing from React)
+- [x] **1.6.6** — `src/hooks/useScrollY.ts` — Scroll position hook for Navbar
 
 ---
 
 ## Phase 2 — Core UI Components
-**Goal:** Build the highest-priority visible sections: Navbar, Hero, Services Grid, Portfolio preview, Team Section.
-**Status:** ⏳ Not Started
-**Dependencies:** Phase 1 complete
+**Status:** ✅ COMPLETE
+
+### 2.1 Atoms
+- [x] **2.1.1** — `Button` — CVA variants (primary, secondary, secondary-dark, ghost, ghost-dark, outline), sizes (sm, md, lg), loading state, leftIcon/rightIcon
+- [x] **2.1.2** — `Badge` — variants (orange, muted, outline)
+- [x] **2.1.3** — `SectionHeading` — eyebrow, heading, description, align, level, theme, animated, id props
+
+### 2.2 Molecules
+- [x] **2.2.1** — `ServiceCard` — Bento card with icon map, hover glow, arrow, link overlay
+- [x] **2.2.2** — `ProjectCard` — Image zoom hover, coming-soon state
+- [x] **2.2.3** — `FAQAccordion` — Accessible accordion, AnimatePresence height animation, dark/light theme
+
+### 2.3 Organisms
+- [x] **2.3.1** — `Navbar` — Glassmorphism, scroll-triggered BG, dropdown menus, mobile slide-in menu, body scroll lock
+- [x] **2.3.2** — `HeroSection` — scroll-scrubbed Canvas image-sequence animation (176 JPEG frames), fade-in entrance, reduced-motion static fallback (replaces CSS device mockups + 3D parallax)
+- [x] **2.3.3** — `ServicesGrid` — Bento grid, all 11 services, stagger animation
+- [x] **2.3.4** — `WhyChooseUs` — 6 value propositions, light background
+- [x] **2.3.5** — `ProcessSection` — 7-step process, dark background
+- [x] **2.3.6** — `TechnologiesSection` — Light background, chip layout per category
+- [x] **2.3.7** — `IndustriesSection` — Dark background, 8 industry cards, icon map
+- [x] **2.3.8** — `TeamSection` — 2 founder cards, placeholder-aware, geometric decorations, inline LinkedIn SVG
+- [x] **2.3.9** — `PortfolioSection` — Empty state (no fake data), stagger when populated
+- [x] **2.3.10** — `FAQSection` — Wraps FAQAccordion, dark bg, contact CTA
+- [x] **2.3.11** — `ContactSection` — Dark CTA card, orange radial glow
+- [x] **2.3.12** — `ContactForm` — React Hook Form + Zod, honeypot, loading/success/error states, all fields
+- [x] **2.3.13** — `Footer` — 4-column, service/company/legal links, inline social SVG icons, copyright
 
 ---
 
-### 2.1 Atom Components
+## Phase 3 — App Pages & API
+**Status:** ✅ MOSTLY COMPLETE — SEO/meta assets missing
 
-#### Task 2.1.1 — Button Component
-- **Description:** Build the `Button` atom with variants (primary, secondary, ghost), sizes (sm, md, lg), loading state, disabled state, and optional icon support.
-- **Priority:** P0
-- **Dependencies:** Phase 1
-- **Acceptance Criteria:**
-  - All variants render correctly
-  - Loading state shows spinner and disables interaction
-  - Keyboard accessible (Enter/Space to activate)
-  - Hover and focus styles match design system
-  - `className` prop for extension
-- [ ] Pending
+### 3.1 Root Layout & Homepage
+- [x] **3.1.1** — `src/app/layout.tsx` — Manrope + Inter fonts, Navbar, Footer, root metadata, accessible main id
+- [x] **3.1.2** — `src/app/page.tsx` — All homepage sections composed in correct order
+- [x] **3.1.3** — `src/app/globals.css` — Complete design tokens and global styles
+- [x] **3.1.4** — `src/app/not-found.tsx` — Custom 404 with brand
+- [x] **3.1.5** — `src/app/error.tsx` — Custom error boundary with brand
 
-#### Task 2.1.2 — SectionHeading Component
-- **Description:** Build a reusable `SectionHeading` component that renders the eyebrow label + main heading + optional description paragraph with consistent styling and entrance animation.
-- **Priority:** P0
-- **Dependencies:** Phase 1
-- **Acceptance Criteria:**
-  - Eyebrow text (uppercase, orange) optional
-  - Main heading styled correctly
-  - Description text optional
-  - Text alignment configurable (left, center)
-  - Framer Motion entrance animation
-- [ ] Pending
+### 3.2 Service Pages
+- [x] **3.2.1** — `src/app/services/page.tsx` — All 11 services listed
+- [x] **3.2.2** — `src/app/services/[slug]/page.tsx` — Dynamic route with generateStaticParams, deliverables, benefits, CTA
 
-#### Task 2.1.3 — Badge and Tag Components
-- **Description:** Build small `Badge` and `Tag` atom components for categories, technologies, and status labels.
-- **Priority:** P1
-- **Dependencies:** Phase 1
-- **Acceptance Criteria:**
-  - Badge: filled background, various colors
-  - Tag: outlined or subtle, for technology labels
-  - Both responsive and accessible
-- [ ] Pending
+### 3.3 Portfolio Pages
+- [x] **3.3.1** — `src/app/portfolio/page.tsx` — Empty state
+- [x] **3.3.2** — `src/app/portfolio/[slug]/page.tsx` — Dynamic (force-dynamic, returns 404 while empty)
 
-#### Task 2.1.4 — AnimatedText Component
-- **Description:** Optional — Build an animated text component for the hero headline with word-by-word or character-by-character reveal.
-- **Priority:** P2
-- **Dependencies:** Phase 1, 2.1.1
-- **Acceptance Criteria:**
-  - Text reveals smoothly on mount
-  - Respects `prefers-reduced-motion` (shows text instantly)
-- [ ] Pending
+### 3.4 Other Inner Pages
+- [x] **3.4.1** — `src/app/technologies/page.tsx`
+- [x] **3.4.2** — `src/app/industries/page.tsx`
+- [x] **3.4.3** — `src/app/about/page.tsx` — Mission, team, CTA
+- [x] **3.4.4** — `src/app/contact/page.tsx` — ContactForm + info sidebar
+- [x] **3.4.5** — `src/app/privacy-policy/page.tsx`
+- [x] **3.4.6** — `src/app/terms-of-service/page.tsx`
+- [ ] **3.4.7** — `src/app/industries/[slug]/page.tsx` — Individual industry pages (NOT BUILT — P2)
+
+### 3.5 API Routes
+- [x] **3.5.1** — `src/app/api/contact/route.ts` — POST handler, honeypot check, Zod validation, rate limiting, Resend email
+
+### 3.6 SEO & Meta Assets
+- [x] **3.6.1** — `src/app/sitemap.ts` — App Router sitemap (generates /sitemap.xml, includes all service + industry routes)
+- [x] **3.6.2** — `src/app/robots.ts` — App Router robots.txt (allows all, disallows /api/, /\_next/)
+- [x] **3.6.3** — `src/app/opengraph-image.tsx` — Dynamic OG image via ImageResponse (edge runtime, 1200×630)
+- [ ] **3.6.4** — Page-level metadata review — ensure all pages use generatePageMetadata() consistently (P1)
 
 ---
 
-### 2.2 Navbar
+## Phase 4 — Interactions & Animations
+**Status:** ✅ MOSTLY COMPLETE
 
-#### Task 2.2.1 — Navbar Component (Desktop)
-- **Description:** Build the desktop `Navbar` organism: floating rounded glassmorphism bar with logo, navigation links, and orange Contact CTA button.
-- **Priority:** P0
-- **Dependencies:** 2.1.1, Phase 1
-- **Acceptance Criteria:**
-  - Correct visual appearance (glassmorphism, rounded, floating)
-  - Fixed position at top of viewport
-  - Logo on left, links in centre/right, CTA rightmost
-  - Scroll behavior: transparent → glass/dark after 80px
-  - Navigation links match the sitemap
-  - Active page link highlighted
-- [ ] Pending
-
-#### Task 2.2.2 — Navbar Dropdown Menus
-- **Description:** Implement dropdown menus for "Services" and potentially "Technologies" navigation items.
-- **Priority:** P0
-- **Dependencies:** 2.2.1
-- **Acceptance Criteria:**
-  - Dropdown appears on hover (desktop) or click
-  - Lists all services with icon + name + tagline
-  - Correct visual styling (dark background, rounded)
-  - Framer Motion animation (fade in + slide down)
-  - Closes on click outside
-  - Closes on Escape key
-  - ARIA attributes correct (`aria-expanded`, `aria-haspopup`)
-- [ ] Pending
-
-#### Task 2.2.3 — Mobile Navigation Menu
-- **Description:** Implement mobile hamburger menu with full-screen or slide-in overlay, accordion sub-menus.
-- **Priority:** P0
-- **Dependencies:** 2.2.1
-- **Acceptance Criteria:**
-  - Hamburger icon visible on screens < 1024px
-  - Menu opens/closes with animation
-  - All nav links accessible
-  - Services dropdown expands inline (accordion)
-  - Body scroll locked when menu is open
-  - Closes on navigation to a new page
-  - Focus trapped within open menu
-- [ ] Pending
+- [x] **4.1** — Navbar: scroll-triggered background, dropdown AnimatePresence, mobile menu
+- [x] **4.2** — Hero: premium interactive 3D scene (`NextGen3DScene`, `LaptopModel`, `SmartphoneModel`, `ScreenContent`, `SceneLighting`) — Three.js + R3F + Drei, mouse parallax, idle float, transparent Canvas, NEXTGEN UI textures
+- [x] **4.3** — Scroll entrance animations: fadeUp, fadeIn, staggerContainer used across all sections
+- [x] **4.4** — Hover animations: service cards, industry cards, process steps, footer social icons
+- [x] **4.5** — FAQ accordion: smooth height animation with AnimatePresence
+- [x] **4.6** — Contact form: loading state, success animation, error state, field-level error messages
+- [ ] **4.7** — Page transition animations (between routes) — P3, optional
 
 ---
 
-### 2.3 Hero Section
+## Phase 5 — Optimization & Quality
+**Status:** ⚠️ IN PROGRESS
 
-#### Task 2.3.1 — Hero Section Layout
-- **Description:** Build the `HeroSection` organism with headline, description, dual CTAs, and placeholder areas for device mockups.
-- **Priority:** P0
-- **Dependencies:** 2.1.1, 2.1.2, Phase 1
-- **Acceptance Criteria:**
-  - Responsive layout (text left, devices right on desktop; stacked on mobile)
-  - Typography matches design system
-  - Both CTA buttons functional and link correctly
-  - Background effects (subtle grain, grid, soft glow)
-  - Accessible heading hierarchy (H1)
-- [ ] Pending
-
-#### Task 2.3.2 — Device Mockup Components
-- **Description:** Build the `DeviceMockup` molecule for the laptop and smartphone frames with screen content areas.
-- **Priority:** P0
-- **Dependencies:** 2.3.1, Phase 1
-- **Acceptance Criteria:**
-  - Laptop and smartphone frames render correctly
-  - Screen content area accepts arbitrary content
-  - CSS 3D perspective applied (slight initial angle)
-  - Device shadow (shadow-device) applied
-  - WebP images optimized via next/image
-- [ ] Pending
-
-#### Task 2.3.3 — 3D Parallax Interaction
-- **Description:** Implement cursor-based parallax effect on hero device mockups using Framer Motion `useMotionValue`, `useTransform`, `useSpring`.
-- **Priority:** P0
-- **Dependencies:** 2.3.2, 1.3.4
-- **Acceptance Criteria:**
-  - Devices rotate subtly on mouse move (max ±10°)
-  - Spring physics smooth the motion
-  - Devices return to initial position on mouse leave
-  - Disabled on touch/coarse pointer devices
-  - Disabled when `prefers-reduced-motion: reduce`
-  - No performance degradation (stable 60fps)
-- [ ] Pending
+- [x] **5.1** — TypeScript strict mode — all components pass `pnpm build` with 0 errors
+- [x] **5.2** — Accessibility: aria-labels, aria-expanded, aria-controls, role attributes used throughout
+- [x] **5.3** — prefers-reduced-motion: respected in HeroSection and SectionHeading
+- [x] **5.4** — Security headers: CSP, HSTS, X-Frame-Options, etc. in next.config.ts
+- [x] **5.5** — Honeypot spam protection on contact form
+- [x] **5.6** — Rate limiting on contact API route (in-memory, 5 req/min/IP)
+- [ ] **5.7** — Responsive testing across all breakpoints (sm/md/lg/xl) — manual check needed
+- [ ] **5.8** — Cross-browser testing (Chrome, Firefox, Safari) — manual check needed
+- [ ] **5.9** — Lighthouse audit (target ≥90 on all metrics) — run after deployment
+- [ ] **5.10** — Add `loading.tsx` skeleton screens — P2
+- [ ] **5.11** — Add skip-to-content link at top of layout — currently has `id="main-content"` but no visible skip link
 
 ---
 
-### 2.4 Services Section (Bento Grid)
+## Phase 6 — Deployment
+**Status:** ❌ NOT STARTED
 
-#### Task 2.4.1 — ServiceCard Component
-- **Description:** Build the `ServiceCard` molecule with: icon, heading, description, hover animation, interactive arrow, and link.
-- **Priority:** P0
-- **Dependencies:** 2.1.1, 2.1.3, Phase 1
-- **Acceptance Criteria:**
-  - Card renders all content correctly
-  - Hover: border → orange tint, scale, arrow animates
-  - Links to `/services/[slug]`
-  - Accessible (keyboard navigable, ARIA)
-  - Works in different bento sizes (accepts span classes via `className`)
-- [ ] Pending
-
-#### Task 2.4.2 — ServicesGrid Section
-- **Description:** Build the `ServicesGrid` organism that arranges 8 `ServiceCard` components in a bento-grid layout.
-- **Priority:** P0
-- **Dependencies:** 2.4.1, 1.2.2
-- **Acceptance Criteria:**
-  - Bento grid layout on desktop (mixed card sizes)
-  - 2-column grid on tablet
-  - Single column on mobile
-  - Stagger entrance animation on scroll
-  - Section heading with eyebrow
-- [ ] Pending
+- [ ] **6.1** — Verify `.gitignore` covers `.env.local`, `.next/`, `node_modules/`
+- [ ] **6.2** — Configure Vercel project (connect repo, set env vars)
+- [ ] **6.3** — Set `RESEND_API_KEY`, `CONTACT_EMAIL_TO`, `NEXT_PUBLIC_SITE_URL` in Vercel env
+- [ ] **6.4** — Configure custom domain
+- [ ] **6.5** — Verify all routes work on production URL
+- [ ] **6.6** — Test contact form end-to-end (real email delivery)
+- [ ] **6.7** — Final Lighthouse audit on production
 
 ---
 
-### 2.5 Portfolio Section (Homepage Preview)
+## Newly Discovered Tasks (from audit)
 
-#### Task 2.5.1 — ProjectCard Component
-- **Description:** Build the `ProjectCard` molecule with: project image, category badge, title, description, and link.
-- **Priority:** P1
-- **Dependencies:** 2.1.3, Phase 1
-- **Acceptance Criteria:**
-  - Image hover zoom effect
-  - Card lift on hover
-  - Category badge styled correctly
-  - "Coming Soon" state available when no real projects exist
-  - Accessible
-- [ ] Pending
-
-#### Task 2.5.2 — Portfolio Preview Section (Homepage)
-- **Description:** Build the `PortfolioSection` organism for the homepage showing 3–4 featured projects.
-- **Priority:** P1
-- **Dependencies:** 2.5.1, 1.2.2
-- **Acceptance Criteria:**
-  - Shows real projects from data file (if any) or "Coming Soon" state
-  - "View All Work" CTA links to `/portfolio`
-  - Responsive grid layout
-  - Scroll entrance animation
-- [ ] Pending
+- [x] **NEW-1** — Created `/public/images/` subdirectories (og/, team/, services/, portfolio/, icons/)
+- [ ] **NEW-2** — Create proper OG social preview image (designer asset needed) — P2
+- [x] **NEW-3** — `src/app/sitemap.ts` — complete
+- [x] **NEW-4** — `src/app/robots.ts` — complete
+- [x] **NEW-5** — Skip-to-content link added in `layout.tsx` (sr-only, visible on focus) — P2
+- [ ] **NEW-6** — Verify contact form with real POST test — P1
+- [ ] **NEW-7** — Review + standardize all page metadata using generatePageMetadata() — P1
+- [ ] **NEW-8** — Re-enable `cacheComponents: true` + `partialPrefetching: true` once portfolio is populated — P2
+- [ ] **NEW-9** — Create `/industries/[slug]/page.tsx` individual industry pages — P2
+- [ ] **NEW-10** — Initialize git repository and make initial commit — P0
 
 ---
 
-### 2.6 Team Section
-
-#### Task 2.6.1 — TeamCard Component
-- **Description:** Build the `TeamCard` molecule for founder presentation with photo, name, designation, and brief bio.
-- **Priority:** P1
-- **Dependencies:** Phase 1
-- **Acceptance Criteria:**
-  - Photo displays correctly (background removed if provided)
-  - Geometric background element behind photo
-  - Name and designation displayed
-  - Bio text displayed (or "Biography coming soon" placeholder if not provided)
-  - Hover interaction (subtle)
-- [ ] Pending
-
-#### Task 2.6.2 — TeamSection Organism
-- **Description:** Build the `TeamSection` organism displaying both founding team members.
-- **Priority:** P1
-- **Dependencies:** 2.6.1
-- **Acceptance Criteria:**
-  - Two team cards displayed side-by-side on desktop
-  - Single column on mobile
-  - Section heading and description
-  - Scroll entrance animation
-  - No placeholder names or invented designations — uses data from `team.ts`
-- [ ] Pending
-
----
-
-**Phase 2 Completion Criteria:** Homepage renders Navbar, Hero (with parallax), Services Grid, Portfolio preview, and Team section. All sections responsive. No TypeScript or ESLint errors.
-
----
-
-## Phase 3 — Remaining Homepage Sections
-**Goal:** Complete all remaining homepage sections.
-**Status:** ⏳ Not Started
-**Dependencies:** Phase 2 substantially complete
-
----
-
-### 3.1 Trust / Company Highlights Section
-- **Description:** Section communicating agency positioning. No fake stats. Use configurable highlights (years, countries, etc.) or omit metric display until real data provided.
-- **Priority:** P1 | **Dependencies:** Phase 1 | [ ] Pending
-
-### 3.2 Why Choose Us Section
-- **Description:** 4–6 differentiating value propositions with icon + heading + description. Content must be real and accurate.
-- **Priority:** P0 | **Dependencies:** Phase 1 | [ ] Pending
-
-### 3.3 Development Process Section
-- **Description:** Numbered/step visual process: Discovery → Planning → Design → Development → Testing → Launch → Maintenance.
-- **Priority:** P1 | **Dependencies:** Phase 1 | [ ] Pending
-
-### 3.4 Technology Stack Section
-- **Description:** Visual grid of technologies grouped by category (Frontend, Backend, AI/ML, Mobile, Cloud, Databases, DevOps). Official tech logos with hover color effect.
-- **Priority:** P1 | **Dependencies:** 1.2.2 | [ ] Pending
-
-### 3.5 Industries We Serve Section
-- **Description:** Icon + label cards for 8 industries. Optionally links to industry-specific pages.
-- **Priority:** P2 | **Dependencies:** 1.2.2 | [ ] Pending
-
-### 3.6 Testimonials Section
-- **Description:** Build the section component; render real testimonials from data file. If data array is empty, do not render the section (or render a placeholder) — never use fake testimonials.
-- **Priority:** P1 | **Dependencies:** 1.2.2 | [ ] Pending
-
-### 3.7 FAQ Section
-- **Description:** Accordion component with 6–8 pre-approved FAQ items covering pricing, process, timeline, IP, communication.
-- **Priority:** P1 | **Dependencies:** 1.2.2 | [ ] Pending
-
-### 3.8 Contact Section (Homepage)
-- **Description:** Short section with a compelling CTA and inline "Start a Conversation" prompt linking to the contact page. Optional: embed a mini 2-field form.
-- **Priority:** P0 | **Dependencies:** Phase 1 | [ ] Pending
-
-### 3.9 Footer
-- **Description:** Full agency footer with: logo + tagline, service links, company links, legal links, social icons, copyright, optional WhatsApp floating button.
-- **Priority:** P0 | **Dependencies:** Phase 1 | [ ] Pending
-
----
-
-**Phase 3 Completion Criteria:** Full homepage is complete with all sections. Can be reviewed end-to-end.
-
----
-
-## Phase 4 — Inner Pages
-**Goal:** Build all service pages, portfolio pages, contact page, and about page.
-**Status:** ⏳ Not Started
-**Dependencies:** Phase 3 substantially complete
-
----
-
-### 4.1 Contact Page
-- **Description:** Full contact page with `ContactForm` organism, contact details section, optional embedded map.
-- **Priority:** P0 | **Dependencies:** Phase 1, Phase 2 Navbar/Footer | [ ] Pending
-
-### 4.2 Contact Form — Full Implementation
-- **Description:** React Hook Form + Zod validated contact form with all fields, honeypot, GDPR consent, loading/success/error states.
-- **Priority:** P0 | **Dependencies:** 4.1 | [ ] Pending
-
-### 4.3 Contact API Route
-- **Description:** `POST /api/contact` server route with Zod validation, honeypot check, Resend email delivery, rate limiting.
-- **Priority:** P0 | **Dependencies:** 4.2 | [ ] Pending
-
-### 4.4 Service Pages — All 11 Services
-- **Description:** Generate all 11 service pages via `generateStaticParams()` from `services.ts` data. Each page includes hero, overview, deliverables, tech, process, benefits, related portfolio, FAQ, CTA.
-- **Priority:** P0 | **Dependencies:** 1.2.2, Phase 2 Navbar/Footer | [ ] Pending
-
-### 4.5 Services Overview Page
-- **Description:** `/services` listing page showing all services in a grid.
-- **Priority:** P1 | **Dependencies:** 4.4 | [ ] Pending
-
-### 4.6 Portfolio Listing Page
-- **Description:** `/portfolio` page with grid layout, filter by service category, and graceful empty state.
-- **Priority:** P1 | **Dependencies:** 2.5.1, 1.2.2 | [ ] Pending
-
-### 4.7 Portfolio Case Study Pages
-- **Description:** Individual `/portfolio/[slug]` pages with challenge, solution, technologies, results, related projects.
-- **Priority:** P1 | **Dependencies:** 4.6 | [ ] Pending
-
-### 4.8 About Page
-- **Description:** Agency story, mission, values, team section (reuse component), CTA.
-- **Priority:** P1 | **Dependencies:** 2.6.2, Phase 1 | [ ] Pending
-
-### 4.9 Technologies Page
-- **Description:** `/technologies` page with full technology stack by category.
-- **Priority:** P2 | **Dependencies:** 3.4 | [ ] Pending
-
-### 4.10 Industries Pages
-- **Description:** `/industries` overview + individual industry pages (if required).
-- **Priority:** P2 | **Dependencies:** 3.5 | [ ] Pending
-
-### 4.11 404 Not Found Page
-- **Description:** Custom `not-found.tsx` with agency branding and navigation back to homepage.
-- **Priority:** P1 | **Dependencies:** Phase 1 | [ ] Pending
-
-### 4.12 Error Page
-- **Description:** Custom `error.tsx` with agency branding.
-- **Priority:** P1 | **Dependencies:** Phase 1 | [ ] Pending
-
----
-
-## Phase 5 — Interactions and Animations
-**Goal:** Polish all interactive states, animations, and advanced interactions.
-**Status:** ⏳ Not Started
-**Dependencies:** Phase 4 substantially complete
-
----
-
-### 5.1 — Navigation Interactions
-- Navbar scroll behavior (transparent → glass) — [ ] Pending
-- Dropdown open/close animation refinement — [ ] Pending
-- Mobile menu slide animation refinement — [ ] Pending
-- Active link state per page — [ ] Pending
-
-### 5.2 — Scroll Animations Audit
-- Verify all sections use correct animation variants from `animations.ts` — [ ] Pending
-- Ensure `viewport={{ once: true }}` on all scroll animations — [ ] Pending
-- Verify `prefers-reduced-motion` respected on all animations — [ ] Pending
-
-### 5.3 — Hover Effects Audit
-- Service cards hover — [ ] Pending
-- Portfolio cards hover + image zoom — [ ] Pending
-- Button hover states (all variants) — [ ] Pending
-- Technology logo hover (grayscale → colour) — [ ] Pending
-- Footer link hover — [ ] Pending
-
-### 5.4 — Hero 3D Parallax Polish
-- Smooth spring tuning — [ ] Pending
-- Mobile fallback (static angle display) — [ ] Pending
-- Verify no jitter on high-DPI screens — [ ] Pending
-
-### 5.5 — Form Interactions
-- Real-time validation feedback — [ ] Pending
-- Loading spinner state — [ ] Pending
-- Success state animation — [ ] Pending
-- Error state display — [ ] Pending
-
-### 5.6 — FAQ Accordion Polish
-- Smooth height animation — [ ] Pending
-- Icon rotate animation (+ → ×) — [ ] Pending
-
-### 5.7 — Page Transitions
-- Implement subtle fade/slide page transition — [ ] Pending (optional — verify performance)
-
----
-
-## Phase 6 — Optimization
-**Goal:** Meet all performance, accessibility, and SEO requirements.
-**Status:** ⏳ Not Started
-**Dependencies:** Phase 5 substantially complete
-
----
-
-### 6.1 Responsive Testing
-- [ ] Test at 375px (iPhone SE) — Pending
-- [ ] Test at 390px (iPhone 14) — Pending
-- [ ] Test at 768px (iPad) — Pending
-- [ ] Test at 1024px (iPad Pro / Small laptop) — Pending
-- [ ] Test at 1280px (Standard desktop) — Pending
-- [ ] Test at 1440px (Large desktop) — Pending
-- [ ] Test at 1920px (Wide monitor) — Pending
-
-### 6.2 Accessibility Audit
-- [ ] All interactive elements keyboard navigable — Pending
-- [ ] All images have alt text — Pending
-- [ ] All form inputs have labels — Pending
-- [ ] Color contrast passes WCAG AA — Pending
-- [ ] Focus indicators visible — Pending
-- [ ] Dropdown ARIA correct — Pending
-- [ ] Screen reader test (VoiceOver / NVDA) — Pending
-
-### 6.3 SEO Implementation
-- [ ] Unique title/meta description per page — Pending
-- [ ] Open Graph tags — Pending
-- [ ] Twitter Card tags — Pending
-- [ ] Structured data (Organization) — Pending
-- [ ] Structured data (Service pages) — Pending
-- [ ] XML sitemap at /sitemap.xml — Pending
-- [ ] robots.txt — Pending
-- [ ] Canonical tags — Pending
-
-### 6.4 Performance Optimization
-- [ ] All images via next/image with correct dimensions — Pending
-- [ ] Hero images use `priority` prop — Pending
-- [ ] Run Lighthouse — target ≥ 90 Performance — Pending
-- [ ] Check bundle size — Pending
-- [ ] Verify no unnecessary client components — Pending
-- [ ] Font loading optimized (no FOUT) — Pending
-
-### 6.5 Security Checklist
-- [ ] No secrets in client code — Pending
-- [ ] Contact form honeypot working — Pending
-- [ ] Rate limiting active on contact API — Pending
-- [ ] CSP headers configured — Pending
-- [ ] Security headers verified — Pending
-- [ ] `.env.local` not committed — Pending
-
-### 6.6 Cross-Browser Testing
-- [ ] Chrome (latest) — Pending
-- [ ] Firefox (latest) — Pending
-- [ ] Safari (latest) — Pending
-- [ ] Edge (latest) — Pending
-- [ ] iOS Safari — Pending
-- [ ] Android Chrome — Pending
-
----
-
-## Phase 7 — Deployment
-**Goal:** Deploy the production-ready website.
-**Status:** ⏳ Not Started
-**Dependencies:** Phase 6 complete and all acceptance criteria met
-
----
-
-### 7.1 Production Configuration
-- [ ] `next.config.ts` production settings (strict mode, security headers) — Pending
-- [ ] Verify `NEXT_PUBLIC_SITE_URL` set to production domain — Pending
-- [ ] Verify all environment variables set in Vercel Dashboard — Pending
-
-### 7.2 Pre-Deployment Checklist
-- [ ] `pnpm build` succeeds without errors or warnings — Pending
-- [ ] No TypeScript errors (`tsc --noEmit`) — Pending
-- [ ] No ESLint errors (`pnpm lint`) — Pending
-- [ ] Lighthouse Performance ≥ 90 — Pending
-- [ ] All contact form flows tested end-to-end — Pending
-- [ ] All navigation links verified — Pending
-- [ ] All forms verified — Pending
-
-### 7.3 Vercel Deployment
-- [ ] Vercel project created and linked to GitHub repository — Pending
-- [ ] Production environment variables configured in Vercel — Pending
-- [ ] Custom domain configured in Vercel — Pending
-- [ ] SSL certificate active — Pending
-- [ ] www → non-www redirect working (or vice versa) — Pending
-
-### 7.4 DNS Configuration
-- [ ] Domain pointed to Vercel — Pending
-- [ ] DNS propagation confirmed — Pending
-- [ ] HTTPS working on custom domain — Pending
-
-### 7.5 Post-Launch Verification
-- [ ] All pages load on production domain — Pending
-- [ ] Contact form submits and email received — Pending
-- [ ] Google Analytics tracking active — Pending
-- [ ] No 404 errors in Vercel logs — Pending
-- [ ] Mobile experience verified on real devices — Pending
-
-### 7.6 Search Engine Submission
-- [ ] Submit sitemap to Google Search Console — Pending
-- [ ] Submit sitemap to Bing Webmaster Tools — Pending
-- [ ] Verify site ownership — Pending
-
----
-
-## Post-MVP Backlog
-
-| Task | Priority | Notes |
-|------|----------|-------|
-| Blog / Insights CMS (Sanity) | P1 | After launch |
-| Real testimonials section | P1 | Once collected |
-| WhatsApp floating button | P2 | Quick win |
-| Live chat widget | P2 | Crisp or Intercom |
-| Newsletter subscription | P2 | Resend Broadcasts |
-| Client portal | P3 | After business need confirmed |
-| Multi-language support | P3 | Evaluate market demand |
-| Project cost estimator | P3 | Interactive tool |
-| Booking/scheduling (Calendly) | P2 | Quick win |
+## Build Verification Log
+
+| Date | Command | Result | Notes |
+|------|---------|--------|-------|
+| 2026-11-02 ~01:00 IST | `pnpm build` | ✅ EXIT 0, 24/24 pages | After fixing: lucide icons, Zod v4 API, `'use client'`, `cacheComponents` disabled |
+| 2026-11-02 ~02:10 IST | `pnpm build` | ✅ EXIT 0, 26/26 pages | After replacing CSS device mockups with `ImageSequenceCanvas` scroll-scrub animation |

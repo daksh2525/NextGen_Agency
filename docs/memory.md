@@ -1,8 +1,8 @@
 # Persistent AI Project Context (Memory)
 **NextGen Agency — Software Development Agency Website**
 **Version:** 2.0.0
-**Last Updated:** 2026-11-02 01:05 IST
-**Current Phase:** Phase 3 — Remaining Pages & Polish (ACTIVE)
+**Last Updated:** 2026-11-02 (Session: Video fix verified)
+**Current Phase:** Phase 4 — Cinematic Hero (PrismaHero) — COMPLETE
 
 ---
 
@@ -182,7 +182,8 @@ src/components/
 | Component | File | Status |
 |-----------|------|--------|
 | Navbar | `Navbar/Navbar.tsx` | ✅ Complete — glassmorphism, dropdowns, mobile menu |
-| HeroSection | `HeroSection/HeroSection.tsx` | ✅ Complete — 3D parallax, CSS device mockups |
+| HeroSection | `HeroSection/HeroSection.tsx` | ✅ Replaced — thin wrapper for PrismaHero |
+| PrismaHero | `components/ui/prisma-hero.tsx` | ✅ NEW — cinematic video hero, WordsPullUp, WordsPullUpMultiStyle, VideoBackground |
 | ServicesGrid | `ServicesGrid/ServicesGrid.tsx` | ✅ Complete — bento grid, 11 services |
 | WhyChooseUs | `WhyChooseUs/WhyChooseUs.tsx` | ✅ Complete — 6 value props, light bg |
 | ProcessSection | `ProcessSection/ProcessSection.tsx` | ✅ Complete — 7-step process |
@@ -247,13 +248,33 @@ src/components/
 
 ## 8. Build Status (VERIFIED ✅)
 
-**Last verified build:** 2026-11-02 ~01:00 IST
+**Last verified build:** 2026-11-02 (after video fix)
 ```
 pnpm build  →  EXIT CODE 0
-24/24 static pages generated
+26/26 static pages generated
 0 TypeScript errors
 0 Turbopack compilation errors
+2 non-critical deprecation warnings (edge runtime for OG image — cosmetic only)
 ```
+
+### Recent Changes (Video Fix Session)
+
+**Problem:** Video background in PrismaHero was not playing/visible in browser.
+
+**Root causes identified:**
+1. No `media-src 'self'` directive in CSP (`next.config.ts`) — while `default-src` covers it in theory, some browsers enforce strict media loading.
+2. JS-state-based opacity toggle (`canplay` event + `useState`) unreliable — if event fired before React effect registered, video stayed `opacity-0`.
+
+**Fix applied:**
+- `next.config.ts` — added `media-src 'self';` to CSP string.
+- `src/components/ui/prisma-hero.tsx` — rewrote `VideoBackground`:
+  - Removed `useRef`, `useState`, `useEffect` from `VideoBackground`
+  - Removed `AnimatePresence` import (was unused)
+  - Video now uses CSS `@keyframes videoFadeIn` via inline `style={{ animation: 'videoFadeIn 1.4s ease-in-out 0.3s both' }}`
+  - No JS state involved — animation fires unconditionally once element mounts
+- `src/app/globals.css` — added `@keyframes videoFadeIn { from { opacity: 0; } to { opacity: 1; } }` at end of file.
+
+**Build re-verified:** ✅ EXIT CODE 0, 26/26 pages, 0 TS errors.
 
 **Route output:**
 - `/` — Static (○)
@@ -311,11 +332,12 @@ pnpm build  →  EXIT CODE 0
 ## 11. Remaining Work (Priority Order)
 
 ### Immediate (P0 — needed for launch quality)
-1. Create public image directories (`/public/images/og/`, `/public/images/team/`, `/public/images/services/`, `/public/images/portfolio/`)
-2. Create default OG image (`/public/images/og/default-og.png`) — 1200×630px
-3. Add `robots.txt` to `/public/`
-4. Add sitemap generation (`next-sitemap` or App Router `sitemap.ts`)
-5. Add `src/app/sitemap.ts` and `src/app/robots.ts`
+1. ✅ Create public image directories — DONE
+2. ✅ Create OG image — DONE (`src/app/opengraph-image.tsx` via ImageResponse)
+3. ✅ Add `robots.ts` — DONE
+4. ✅ Add `sitemap.ts` — DONE
+5. ✅ Skip-to-content link — DONE in `layout.tsx`
+6. Verify contact form API endpoint with a real POST request test
 
 ### High Priority (P1 — important for SEO & completeness)
 6. Individual service pages already done — verify all 11 slugs render correctly in browser
@@ -375,7 +397,7 @@ Never commit `.env.local` — it is gitignored.
 | 2026-11-02 (Session 1) | Documentation created | 7 docs files created |
 | 2026-11-02 (Session 2) | Foundation + Core UI | Next.js 16 initialized, all atoms/molecules/organisms written, data files, types, lib, hooks |
 | 2026-11-02 (Session 3) | Completion + Bug Fixes | All pages written, API route, not-found, error; fixed lucide icon names, Zod v4 API, SectionHeading id prop, `'use client'` on organisms, disabled cacheComponents — **pnpm build passes 0 errors** |
-| 2026-11-02 (This Session) | Full audit → memory.md rewrite → documentation sync → next: sitemap/OG/robots | ← CURRENT |
+| 2026-11-02 (This Session) | Hero premium visual polish | Radial mask (canvas destination-in), 1.18× upscale, orange glow layers, 44/56 grid columns. No rectangular border. Build 26/26 ✅ | ← CURRENT |
 
 ---
 
