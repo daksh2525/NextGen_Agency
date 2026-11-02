@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { Button } from '@/components/atoms/Button/Button';
 import { team } from '@/data/team';
 
 // Inline LinkedIn SVG — lucide-react v1.66 removed this icon
@@ -134,13 +134,12 @@ export default function AboutPage() {
           <p className="text-muted-grey text-lg mb-8 max-w-xl mx-auto">
             We take on a limited number of new projects each quarter to ensure quality. Get in touch early.
           </p>
-          <Link
+          <Button
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-xl bg-orange text-white font-semibold px-10 py-4 text-base hover:bg-orange-dark hover:shadow-[0_0_24px_rgba(240,120,43,0.25)] active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+            rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
           >
             Start a Conversation
-            <ArrowRight className="w-5 h-5" aria-hidden="true" />
-          </Link>
+          </Button>
         </div>
       </section>
     </>

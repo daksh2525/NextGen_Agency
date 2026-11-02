@@ -1,0 +1,145 @@
+.root {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.viewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 12px;
+  padding-right: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 11px 17px;
+  border: 1px solid color-mix(in srgb, var(--tool-accent) 30%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tool-accent) 7%, var(--surface, #ffffff));
+  color: var(--text, #171716);
+  font-size: 13px;
+  font-weight: 500;
+  transition:
+    transform 250ms ease,
+    border-color 250ms ease,
+    background 250ms ease;
+}
+
+.badge:hover {
+  transform: translateY(-3px);
+  border-color: var(--tool-accent);
+  background: color-mix(in srgb, var(--tool-accent) 14%, var(--surface, #ffffff));
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tool-accent);
+}
+
+.icon svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.8;
+}
+
+.control {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--tool-control-border, #d4d4d4);
+  border-radius: 50%;
+  background: var(--surface, #ffffff);
+  color: var(--text, #171716);
+  cursor: pointer;
+  transition: background 200ms ease;
+}
+
+.control:hover {
+  background: var(--surface-2, #e9e8e3);
+}
+
+.control svg {
+  width: 15px;
+  height: 15px;
+}
+
+@media (max-width: 640px) {
+  .rows {
+    gap: 10px;
+  }
+
+  .group {
+    gap: 8px;
+    padding-right: 8px;
+  }
+
+  .badge {
+    padding: 9px 13px;
+    font-size: 12px;
+    gap: 7px;
+  }
+
+  .icon svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    transition: none;
+  }
+
+  .badge:hover {
+    transform: none;
+  }
+}

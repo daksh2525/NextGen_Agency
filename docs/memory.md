@@ -184,11 +184,11 @@ src/components/
 | Navbar | `Navbar/Navbar.tsx` | ✅ Complete — glassmorphism, dropdowns, mobile menu |
 | HeroSection | `HeroSection/HeroSection.tsx` | ✅ Replaced — thin wrapper for PrismaHero |
 | PrismaHero | `components/ui/prisma-hero.tsx` | ✅ NEW — cinematic video hero, WordsPullUp, WordsPullUpMultiStyle, VideoBackground |
-| ServicesGrid | `ServicesGrid/ServicesGrid.tsx` | ✅ Complete — bento grid, 11 services |
-| WhyChooseUs | `WhyChooseUs/WhyChooseUs.tsx` | ✅ Complete — 6 value props, light bg |
-| ProcessSection | `ProcessSection/ProcessSection.tsx` | ✅ Complete — 7-step process |
+| ServicesGrid | `ServicesGrid/ServicesGrid.tsx` | ✅ Complete — animated 3-column asymmetric Bento Grid (WHAT WE BUILD: AI/ML, Full-Stack, SaaS, RAG, Agents, Mobile, Web) |
+| WhyChooseUs | `WhyChooseUs/WhyChooseUs.tsx` | ✅ Complete — compact 4-card 2x2 Bento Grid (AI-Native, Scale, Direct Access, Quality Guarantee) |
+| ProcessSection | `ProcessSection/ProcessSection.tsx` | ✅ Complete — 7-step interactive RadialScrollGallery (GSAP ScrollTrigger) |
 | PortfolioSection | `PortfolioSection/PortfolioSection.tsx` | ✅ Complete — empty state |
-| TechnologiesSection | `TechnologiesSection/TechnologiesSection.tsx` | ✅ Complete — chip layout |
+| TechnologiesSection | `TechnologiesSection/TechnologiesSection.tsx` | ✅ Complete — 4-row animated ToolchainMarquee (Frontend, Backend, AI/ML, Tools) |
 | IndustriesSection | `IndustriesSection/IndustriesSection.tsx` | ✅ Complete — 8 industry cards |
 | TeamSection | `TeamSection/TeamSection.tsx` | ✅ Complete — placeholder-aware |
 | FAQSection | `FAQSection/FAQSection.tsx` | ✅ Complete — accordion, CTA |
@@ -397,7 +397,7 @@ Never commit `.env.local` — it is gitignored.
 | 2026-11-02 (Session 1) | Documentation created | 7 docs files created |
 | 2026-11-02 (Session 2) | Foundation + Core UI | Next.js 16 initialized, all atoms/molecules/organisms written, data files, types, lib, hooks |
 | 2026-11-02 (Session 3) | Completion + Bug Fixes | All pages written, API route, not-found, error; fixed lucide icon names, Zod v4 API, SectionHeading id prop, `'use client'` on organisms, disabled cacheComponents — **pnpm build passes 0 errors** |
-| 2026-11-02 (This Session) | Hero premium visual polish | Radial mask (canvas destination-in), 1.18× upscale, orange glow layers, 44/56 grid columns. No rectangular border. Build 26/26 ✅ | ← CURRENT |
+| 2026-11-02 (Session 4) | UI Components Integration | LiquidButton shared <Button>; ToolchainMarquee (Technologies); RadialScrollGallery (Process); Compact 4-Card Bento Grid (WhyChooseUs); Animated Services Bento Grid (ServicesGrid) | ← CURRENT |
 
 ---
 

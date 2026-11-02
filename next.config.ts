@@ -5,7 +5,7 @@ const ContentSecurityPolicy = `
   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
-  img-src 'self' data: blob: https://www.google-analytics.com;
+  img-src 'self' data: blob: https://www.google-analytics.com https://cdn.21st.dev https://images.unsplash.com;
   worker-src 'self' blob:;
   media-src 'self';
   connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com;
@@ -18,6 +18,18 @@ const ContentSecurityPolicy = `
   .trim();
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.21st.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
+  },
   // cacheComponents and partialPrefetching require generateStaticParams to return
   // at least one result for all dynamic routes. Re-enable when portfolio has real projects.
   // cacheComponents: true,

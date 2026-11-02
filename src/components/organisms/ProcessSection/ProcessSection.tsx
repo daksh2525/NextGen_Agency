@@ -1,30 +1,74 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import {
-  Search, Layout, Palette, Code2, CheckCircle, Rocket, Wrench,
+  Search,
+  Layout,
+  Palette,
+  Code2,
+  CheckCircle,
+  Rocket,
+  Wrench,
 } from 'lucide-react';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
-import { staggerContainer, scaleIn, VIEWPORT_ONCE } from '@/lib/animations';
+import { RadialScrollGallery } from '@/components/ui/portfolio-and-image-gallery';
 
 const STEPS = [
-  { step: 1, icon: Search,       title: 'Discovery',    description: 'Map your goals, users, and technical requirements.' },
-  { step: 2, icon: Layout,       title: 'Planning',     description: 'Architecture decisions, tech stack, and project roadmap.' },
-  { step: 3, icon: Palette,      title: 'Design',       description: 'UI/UX design with prototypes and design system.' },
-  { step: 4, icon: Code2,        title: 'Development',  description: 'Iterative builds with regular demos and feedback loops.' },
-  { step: 5, icon: CheckCircle,  title: 'Testing',      description: 'QA across devices, browsers, and edge cases.' },
-  { step: 6, icon: Rocket,       title: 'Launch',       description: 'Smooth production deployment with monitoring setup.' },
-  { step: 7, icon: Wrench,       title: 'Support',      description: 'Ongoing maintenance, performance, and iteration.' },
+  {
+    step: '01',
+    icon: Search,
+    title: 'Discovery',
+    description: 'Map your goals, users, and technical requirements.',
+  },
+  {
+    step: '02',
+    icon: Layout,
+    title: 'Planning',
+    description: 'Architecture decisions, tech stack, and project roadmap.',
+  },
+  {
+    step: '03',
+    icon: Palette,
+    title: 'Design',
+    description: 'UI/UX design with prototypes and design system.',
+  },
+  {
+    step: '04',
+    icon: Code2,
+    title: 'Development',
+    description: 'Iterative builds with regular demos and feedback loops.',
+  },
+  {
+    step: '05',
+    icon: CheckCircle,
+    title: 'Testing',
+    description: 'Rigorous QA across devices, browsers, and edge cases.',
+  },
+  {
+    step: '06',
+    icon: Rocket,
+    title: 'Launch',
+    description: 'Smooth production deployment with monitoring setup.',
+  },
+  {
+    step: '07',
+    icon: Wrench,
+    title: 'Support',
+    description: 'Ongoing maintenance, performance, and iteration.',
+  },
 ] as const;
 
 /**
- * Development process section — numbered steps on dark background.
- * See docs/prd.md Section 8.7.
+ * Development process section — interactive radial scroll gallery on dark background.
+ * Combines GSAP ScrollTrigger physics with NextGen Agency's dark-mode brand styling.
  */
 export function ProcessSection() {
   return (
-    <section className="bg-charcoal section-padding" aria-labelledby="process-heading">
-      <div className="container-site">
+    <section
+      id="process-section"
+      className="bg-charcoal section-padding relative overflow-hidden"
+      aria-labelledby="process-heading"
+    >
+      <div className="container-site mb-6">
         <SectionHeading
           id="process-heading"
           eyebrow="OUR PROCESS"
@@ -33,34 +77,73 @@ export function ProcessSection() {
           align="center"
           theme="dark"
         />
+      </div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT_ONCE}
-          className="mt-14 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4"
+      <div className="w-full">
+        <RadialScrollGallery
+          className="!min-h-[640px]"
+          baseRadius={460}
+          mobileRadius={220}
+          scrollDuration={1800}
+          visiblePercentage={44}
         >
-          {STEPS.map(({ step, icon: Icon, title, description }) => (
-            <motion.div
-              key={step}
-              variants={scaleIn}
-              className="group rounded-xl bg-surface-grey border border-border-dark p-4 text-center hover:border-orange/20 transition-all duration-300 hover:scale-[1.02]"
-            >
-              {/* Step number */}
-              <div className="font-heading font-extrabold text-4xl text-orange/15 mb-2 leading-none select-none" aria-hidden="true">
-                {String(step).padStart(2, '0')}
-              </div>
-              {/* Icon */}
-              <div className="mx-auto mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-orange/10 text-orange">
-                <Icon className="h-4 w-4" aria-hidden="true" />
-              </div>
-              <h3 className="font-heading font-bold text-sm text-warm-white mb-1">{title}</h3>
-              <p className="text-[11px] text-muted-grey leading-relaxed">{description}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+          {(hoveredIndex) =>
+            STEPS.map((item, index) => {
+              const isActive = hoveredIndex === index;
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.step}
+                  className={`
+                    w-[190px] h-[270px] sm:w-[230px] sm:h-[310px] 
+                    rounded-2xl border p-6 flex flex-col justify-between items-start 
+                    transition-all duration-500 shadow-xl select-none backdrop-blur-md
+                    ${
+                      isActive
+                        ? 'bg-orange border-orange text-white scale-100 shadow-[0_0_36px_rgba(240,120,43,0.4)]'
+                        : 'bg-surface-grey/95 border-border-dark text-warm-white scale-90 opacity-80 hover:opacity-100 hover:border-orange/30'
+                    }
+                  `}
+                >
+                  <div className="w-full flex justify-between items-start">
+                    <span
+                      className={`font-mono text-xl font-extrabold tracking-tight ${
+                        isActive ? 'text-white/80' : 'text-orange'
+                      }`}
+                    >
+                      {item.step}
+                    </span>
+                    <div
+                      className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${
+                        isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-orange/10 text-orange'
+                      }`}
+                    >
+                      <Icon className="w-4 h-4" aria-hidden="true" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-heading font-bold mb-2 text-inherit">
+                      {item.title}
+                    </h3>
+                    <p
+                      className={`text-xs leading-relaxed ${
+                        isActive ? 'text-white/90' : 'text-muted-grey'
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })
+          }
+        </RadialScrollGallery>
       </div>
     </section>
   );
 }
+
+export default ProcessSection;

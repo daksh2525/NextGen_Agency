@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect } from 'react';
 import { AlertTriangle, RefreshCcw, Home } from 'lucide-react';
+import { Button } from '@/components/atoms/Button/Button';
 
 interface ErrorPageProps {
   error: Error & { digest?: string };
@@ -29,20 +29,19 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
       </p>
 
       <div className="flex flex-col sm:flex-row items-center gap-4">
-        <button
+        <Button
           onClick={reset}
-          className="inline-flex items-center gap-2 rounded-xl bg-orange text-white font-semibold px-8 py-4 text-base hover:bg-orange-dark hover:shadow-[0_0_24px_rgba(240,120,43,0.25)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+          leftIcon={<RefreshCcw className="h-4 w-4" aria-hidden="true" />}
         >
-          <RefreshCcw className="w-5 h-5" aria-hidden="true" />
           Try Again
-        </button>
-        <Link
+        </Button>
+        <Button
           href="/"
-          className="inline-flex items-center gap-2 rounded-xl border border-warm-white/20 text-warm-white font-semibold px-8 py-4 text-base hover:bg-white/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+          variant="secondary"
+          leftIcon={<Home className="h-4 w-4" aria-hidden="true" />}
         >
-          <Home className="w-5 h-5" aria-hidden="true" />
           Go Home
-        </Link>
+        </Button>
       </div>
     </div>
   );

@@ -1,87 +1,83 @@
-'use client';
+"use client";
 
-import { cva, type VariantProps } from 'class-variance-authority';
-import { Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
-/** Button variant definitions using class-variance-authority */
-const buttonVariants = cva(
-  // Base classes
-  'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal disabled:opacity-50 disabled:pointer-events-none select-none',
-  {
-    variants: {
-      variant: {
-        primary:
-          'bg-orange text-white hover:bg-orange-dark hover:shadow-[0_0_24px_rgba(240,120,43,0.25),0_4px_12px_rgba(240,120,43,0.15)] active:scale-[0.98]',
-        secondary:
-          'bg-transparent border border-warm-white/20 text-warm-white hover:bg-white/8 active:scale-[0.98]',
-        'secondary-dark':
-          'bg-transparent border border-charcoal/20 text-charcoal hover:bg-black/5 active:scale-[0.98]',
-        ghost:
-          'bg-transparent text-warm-white hover:text-white group active:scale-[0.98]',
-        'ghost-dark':
-          'bg-transparent text-charcoal hover:text-text-dark group active:scale-[0.98]',
-        outline:
-          'bg-transparent border border-orange text-orange hover:bg-orange hover:text-white active:scale-[0.98]',
-      },
-      size: {
-        sm: 'px-4 py-2 text-sm',
-        md: 'px-6 py-3 text-[15px]',
-        lg: 'px-8 py-4 text-base',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-      size: 'md',
-    },
-  },
-);
+type Variant =
+  | "primary"
+  | "secondary"
+  | "secondary-dark"
+  | "ghost"
+  | "ghost-dark"
+  | "outline";
+type Size = "sm" | "md" | "lg";
+
+const liquidTone: Record<Exclude<Variant, "ghost" | "ghost-dark">, string> = {
+  primary: "dark bg-orange/90 text-white",
+  secondary: "dark bg-white/5 text-warm-white",
+  "secondary-dark": "bg-charcoal/5 text-charcoal",
+  outline: "dark bg-orange/10 text-orange hover:text-white",
+};
+
+const liquidSize = { sm: "lg", md: "xl", lg: "xxl" } as const;
+
+const ghostTone = {
+  ghost: "text-warm-white hover:text-white",
+  "ghost-dark": "text-charcoal hover:text-text-dark",
+};
+const ghostSize = {
+  sm: "px-4 py-2 text-sm",
+  md: "px-6 py-3 text-[15px]",
+  lg: "px-8 py-4 text-base",
+};
 
 interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  /** Shows loading spinner and disables interaction */
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color"> {
+  variant?: Variant;
+  size?: Size;
   isLoading?: boolean;
-  /** Icon rendered before the button label */
   leftIcon?: React.ReactNode;
-  /** Icon rendered after the button label */
   rightIcon?: React.ReactNode;
-  /** Applies full width to the button */
   fullWidth?: boolean;
+  /** Agar diya, to click par us page par jayega (link ki tarah) */
+  href?: string;
 }
 
-/**
- * Primary Button atom.
- * See docs/design.md Section 9 for all variant specifications.
- *
- * @example
- * <Button variant="primary" size="lg" rightIcon={<ArrowRight />}>
- *   Start Your Project
- * </Button>
- */
 export function Button({
   children,
-  variant,
-  size,
+  variant = "primary",
+  size = "md",
   isLoading = false,
   leftIcon,
   rightIcon,
   fullWidth = false,
+  href,
   className,
   disabled,
+  onClick,
   ...props
 }: ButtonProps) {
-  return (
-    <button
-      className={cn(
-        buttonVariants({ variant, size }),
-        fullWidth && 'w-full',
-        className,
-      )}
-      disabled={disabled || isLoading}
-      aria-disabled={disabled || isLoading}
-      {...props}
-    >
+  const router = useRouter();
+  const isDisabled = disabled || isLoading;
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    onClick?.(e);
+    if (e.defaultPrevented || !href) return;
+    if (/^(https?:|mailto:|tel:)/.test(href)) {
+      window.open(
+        href,
+        href.startsWith("http") ? "_blank" : "_self",
+        "noopener,noreferrer"
+      );
+    } else {
+      router.push(href);
+    }
+  };
+
+  const content = (
+    <span className="inline-flex items-center justify-center gap-2">
       {isLoading ? (
         <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
       ) : (
@@ -89,6 +85,46 @@ export function Button({
       )}
       {children}
       {!isLoading && rightIcon}
-    </button>
+    </span>
+  );
+
+  if (variant === "ghost" || variant === "ghost-dark") {
+    return (
+      <button
+        type={href ? "button" : props.type}
+        className={cn(
+          "group inline-flex select-none items-center justify-center gap-2 rounded-full bg-transparent font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50",
+          ghostTone[variant],
+          ghostSize[size],
+          fullWidth && "w-full",
+          className
+        )}
+        disabled={isDisabled}
+        aria-disabled={isDisabled}
+        onClick={handleClick}
+        {...props}
+      >
+        {content}
+      </button>
+    );
+  }
+
+  return (
+    <LiquidButton
+      variant="default"
+      size={liquidSize[size]}
+      className={cn(
+        "rounded-full text-[15px] font-semibold",
+        liquidTone[variant],
+        fullWidth && "w-full",
+        className
+      )}
+      disabled={isDisabled}
+      aria-disabled={isDisabled}
+      onClick={handleClick}
+      {...props}
+    >
+      {content}
+    </LiquidButton>
   );
 }

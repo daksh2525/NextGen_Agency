@@ -1,11 +1,9 @@
 'use client';
 
-'use client';
-
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { FAQAccordion } from '@/components/molecules/FAQAccordion';
+import { Button } from '@/components/atoms/Button/Button';
 import { faqs } from '@/data/faqs';
 import { staggerContainer, fadeUp, VIEWPORT_ONCE } from '@/lib/animations';
 
@@ -48,12 +46,9 @@ export function FAQSection() {
           <p className="text-muted-grey mb-6 text-[15px]">
             Still have questions? We&apos;re happy to help.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-orange text-orange hover:bg-orange hover:text-white px-8 py-3 font-semibold text-[15px] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
-          >
+          <Button href="/contact" variant="outline">
             Get in Touch
-          </Link>
+          </Button>
         </motion.div>
       </div>
     </section>

@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { ContactForm } from '@/components/organisms/ContactForm';
-
 export const metadata: Metadata = {
   title: 'Contact Us — Start Your Project',
   description:

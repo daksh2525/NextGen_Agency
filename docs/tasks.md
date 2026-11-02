@@ -81,9 +81,9 @@
 - [x] **2.3.1** — `Navbar` — Glassmorphism, scroll-triggered BG, dropdown menus, mobile slide-in menu, body scroll lock
 - [x] **2.3.2** — `HeroSection` — scroll-scrubbed Canvas image-sequence animation (176 JPEG frames), fade-in entrance, reduced-motion static fallback (replaces CSS device mockups + 3D parallax)
 - [x] **2.3.3** — `ServicesGrid` — Bento grid, all 11 services, stagger animation
-- [x] **2.3.4** — `WhyChooseUs` — 6 value propositions, light background
-- [x] **2.3.5** — `ProcessSection` — 7-step process, dark background
-- [x] **2.3.6** — `TechnologiesSection` — Light background, chip layout per category
+- [x] **2.3.4** — `WhyChooseUs` — Interactive AgencyBentoGrid (team interactive grid, 100+ stat, partner marquee, tech marquee, client testimonial), light background
+- [x] **2.3.5** — `ProcessSection` — Interactive 360-degree RadialScrollGallery (GSAP ScrollTrigger), 7-step process, dark background
+- [x] **2.3.6** — `TechnologiesSection` — Light background, animated 4-row ToolchainMarquee (Frontend, Backend, AI/ML, DevOps) with play/pause and reduced-motion support
 - [x] **2.3.7** — `IndustriesSection` — Dark background, 8 industry cards, icon map
 - [x] **2.3.8** — `TeamSection` — 2 founder cards, placeholder-aware, geometric decorations, inline LinkedIn SVG
 - [x] **2.3.9** — `PortfolioSection` — Empty state (no fake data), stagger when populated

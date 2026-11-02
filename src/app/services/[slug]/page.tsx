@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, CheckCircle, ArrowRight } from 'lucide-react';
 import { services } from '@/data/services';
 import { Badge } from '@/components/atoms/Badge';
+import { Button } from '@/components/atoms/Button/Button';
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -52,13 +53,12 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               <p className="text-muted-grey text-lg leading-relaxed mb-8">
                 {service.fullDescription}
               </p>
-              <Link
+              <Button
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-xl bg-orange text-white font-semibold px-8 py-4 text-base hover:bg-orange-dark hover:shadow-[0_0_24px_rgba(240,120,43,0.25)] active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+                rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
               >
                 Start This Project
-                <ArrowRight className="w-5 h-5" aria-hidden="true" />
-              </Link>
+              </Button>
             </div>
 
             {/* Deliverables */}
@@ -127,13 +127,12 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           <p className="text-text-muted-dark mb-8">
             Tell us about your {service.name.toLowerCase()} requirements and we&apos;ll put together a proposal within 48 hours.
           </p>
-          <Link
+          <Button
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-xl bg-orange text-white font-semibold px-10 py-4 text-base hover:bg-orange-dark hover:shadow-[0_0_24px_rgba(240,120,43,0.25)] active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+            rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
           >
             Start Your Project
-            <ArrowRight className="w-5 h-5" aria-hidden="true" />
-          </Link>
+          </Button>
         </div>
       </section>
     </>

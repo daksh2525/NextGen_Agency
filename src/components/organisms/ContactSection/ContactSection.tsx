@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar } from 'lucide-react';
+import { Button } from '@/components/atoms/Button/Button';
 import { fadeUp, VIEWPORT_ONCE } from '@/lib/animations';
 
 /**
@@ -48,20 +48,19 @@ export function ContactSection() {
 
           {/* CTAs */}
           <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
+            <Button
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-orange text-white font-semibold px-8 py-4 text-base hover:bg-orange-dark hover:shadow-[0_0_24px_rgba(240,120,43,0.25),0_4px_12px_rgba(240,120,43,0.15)] active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+              rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
             >
               Start a Project
-              <ArrowRight className="w-5 h-5" aria-hidden="true" />
-            </Link>
-            <Link
+            </Button>
+            <Button
               href="/contact?type=call"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-warm-white/20 text-warm-white font-semibold px-8 py-4 text-base hover:bg-white/8 active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+              variant="secondary"
+              leftIcon={<Calendar className="h-4 w-4" aria-hidden="true" />}
             >
-              <Calendar className="w-5 h-5" aria-hidden="true" />
               Schedule a Call
-            </Link>
+            </Button>
           </div>
         </motion.div>
       </div>

@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, AlertCircle, Loader2, Send } from 'lucide-react';
+import { CheckCircle, AlertCircle, Send } from 'lucide-react';
+import { Button } from '@/components/atoms/Button/Button';
 import {
   contactFormSchema,
   type ContactFormData,
@@ -360,23 +361,14 @@ export function ContactForm() {
 
       {/* Submit */}
       <div className="mt-8">
-        <button
+        <Button
           type="submit"
-          disabled={submitStatus === 'loading'}
-          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-orange text-white font-semibold px-10 py-4 text-base hover:bg-orange-dark hover:shadow-[0_0_24px_rgba(240,120,43,0.25),0_4px_12px_rgba(240,120,43,0.15)] active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal disabled:opacity-60 disabled:pointer-events-none"
+          isLoading={submitStatus === 'loading'}
+          className="w-full sm:w-auto"
+          leftIcon={<Send className="h-4 w-4" aria-hidden="true" />}
         >
-          {submitStatus === 'loading' ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
-              Sending…
-            </>
-          ) : (
-            <>
-              <Send className="w-5 h-5" aria-hidden="true" />
-              Send Message
-            </>
-          )}
-        </button>
+          {submitStatus === 'loading' ? 'Sending…' : 'Send Message'}
+        </Button>
       </div>
     </form>
   );

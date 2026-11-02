@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { getProjectBySlug, portfolio } from '@/data/portfolio';
+import { getProjectBySlug } from '@/data/portfolio';
 
 interface PortfolioDetailPageProps {
   params: Promise<{ slug: string }>;

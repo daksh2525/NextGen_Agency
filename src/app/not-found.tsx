@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Home, ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/atoms/Button/Button';
 
 export const metadata: Metadata = {
   title: '404 — Page Not Found',
@@ -22,20 +22,19 @@ export default function NotFound() {
       </p>
 
       <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
-        <Link
+        <Button
           href="/"
-          className="inline-flex items-center gap-2 rounded-xl bg-orange text-white font-semibold px-8 py-4 text-base hover:bg-orange-dark hover:shadow-[0_0_24px_rgba(240,120,43,0.25)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+          leftIcon={<Home className="h-4 w-4" aria-hidden="true" />}
         >
-          <Home className="w-5 h-5" aria-hidden="true" />
           Go Home
-        </Link>
-        <Link
+        </Button>
+        <Button
           href="/contact"
-          className="inline-flex items-center gap-2 rounded-xl border border-warm-white/20 text-warm-white font-semibold px-8 py-4 text-base hover:bg-white/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+          variant="secondary"
+          leftIcon={<ArrowLeft className="h-4 w-4" aria-hidden="true" />}
         >
-          <ArrowLeft className="w-5 h-5" aria-hidden="true" />
           Contact Us
-        </Link>
+        </Button>
       </div>
     </div>
   );

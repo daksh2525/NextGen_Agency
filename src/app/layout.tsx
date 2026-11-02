@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Manrope } from 'next/font/google';
 import './globals.css';
-import { Navbar } from '@/components/organisms/Navbar';
+import { LiquidHeader } from "@/components/organisms/LiquidHeader/LiquidHeader"
 import { Footer } from '@/components/organisms/Footer';
 
 // ─── Fonts ───────────────────────────────────────────────────────────────────
@@ -71,7 +71,7 @@ export default function RootLayout({
       className={`${inter.variable} ${manrope.variable}`}
     >
       <body className="min-h-screen bg-charcoal text-warm-white font-body antialiased">
-        <Navbar />
+       <LiquidHeader />
         {/* Skip to main content — accessibility */}
         <a
           href="#main-content"
