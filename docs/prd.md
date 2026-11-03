@@ -1,8 +1,8 @@
 # Product Requirements Document (PRD)
 **NextGen Agency — Software Development Agency Website**
-**Version:** 1.0.0
-**Status:** Draft — Pending Client Review
-**Last Updated:** 2026-11-02
+**Version:** 2.2.0
+**Status:** Implemented — Single Page Application (SPA) with 3D WebGL Labs
+**Last Updated:** 2026-11-03
 
 ---
 
@@ -130,38 +130,27 @@ The site is primarily a **lead generation and brand authority platform** — not
 
 ---
 
-## 5. Sitemap
+## 5. Sitemap & Application Structure
+
+The website is structured as an integrated, high-conversion **Single Page Application (SPA)** with smooth in-page anchor navigation and dynamic scrollspy tracking.
 
 ```
-/                           → Homepage
-/services                   → Services Overview
-  /services/web-development
-  /services/full-stack-development
-  /services/saas-development
-  /services/ai-ml-solutions
-  /services/rag-applications
-  /services/ai-agents
-  /services/mobile-development
-  /services/ecommerce-development
-  /services/backend-api-development
-  /services/ui-ux-design
-  /services/maintenance-support
-/technologies               → Technology Stack Overview
-/industries                 → Industries We Serve
-  /industries/fintech
-  /industries/healthtech
-  /industries/edtech
-  /industries/ecommerce
-  /industries/saas
-  /industries/enterprise
-/portfolio                  → Portfolio / Case Studies
-  /portfolio/[project-slug] → Individual Case Study
-/insights                   → Blog / Articles (Phase 2)
-  /insights/[article-slug]
-/about                      → About the Agency & Team
-/contact                    → Contact / Lead Generation
-/privacy-policy             → Privacy Policy
-/terms-of-service           → Terms of Service
+/                           → Single Page Application Homepage
+  #home                     → Prisma WebGL Hero & Primary Value Proposition
+  #services                 → 11-Service Bento Grid Architecture
+  #why-nextgen              → Differentiator & Value Matrix
+  #process                  → Pinned GSAP Horizontal Scrolling Timeline (7 Steps)
+  #agentic-factory          → Interactive 3D WebGL Autonomous Assembly Line
+  #portfolio                → Featured Client Case Studies & Deliverables
+  #tech-stack               → 4-Row Modern Toolchain & Technology Marquee
+  #industries               → Enterprise & Domain Verticals Served
+  #team                     → Leadership Founders (CEO & CTO)
+  #faq                      → Client Questions & Engagement Models
+  #contact                  → Interactive Contact & Scope Submission Form
+
+/api/contact                → Serverless API Endpoint for Lead Inquiries
+/sitemap.xml                → Dynamically Generated Search Engine Sitemap
+/not-found                  → Branded 404 Recovery Experience
 ```
 
 ---
@@ -280,85 +269,59 @@ The site is primarily a **lead generation and brand authority platform** — not
 
 ## 8. Homepage Section Requirements
 
-### 8.1 Navbar
-- Sticky, floating, rounded rectangular shape
-- Semi-transparent / glassmorphism background with backdrop blur
-- Logo (left), nav links (centre/right), orange "Contact" CTA button (rightmost)
-- Transitions smoothly from transparent to solid on scroll
-- Links: Home | Services | Technologies | Industries | Portfolio | Insights | About | Contact
+### 8.1 Liquid Navbar (`LiquidHeader`)
+- Floating pill-style navbar with glassmorphism backdrop filter
+- Active section indicator with scrollspy tracking
+- Links: Home (`#home`), Services (`#services`), Process (`#process`), Portfolio (`#portfolio`), Tech (`#tech-stack`), About (`#team`)
+- Primary CTA: "Contact Us →" linking directly to in-page `#contact` form
 
-### 8.2 Hero Section
-- Large bold headline communicating the agency's core value proposition
-- Supporting description (1–2 sentences)
-- Primary CTA: "Start Your Project" → /contact
-- Secondary CTA: "View Our Work" → /portfolio
-- 3D device mockups (laptop + smartphone) rendered with CSS 3D transforms / Framer Motion
-- Cursor-based parallax: devices rotate subtly based on mouse position
-- Subtle background effects: grain texture, faint grid, soft glow
-- No fake stats or fabricated numbers in the initial launch version
+### 8.2 Hero Section (`HeroSection` + `PrismaHero`)
+- Interactive procedural 3D WebGL glass prism with dispersion, reflections, and dynamic mouse interaction
+- Bold agency value proposition: "Engineering Digital Products That Redefine Industries"
+- Dual CTAs: "Start Your Project" (`#contact`) and "Explore Services" (`#services`)
+- Metric highlight badges (100% IP Ownership, Production-Grade AI, High-Velocity Sprints)
 
-### 8.3 Services Section
-- Bento-grid layout with cards of varying sizes
-- 8 service cards
-- Each card: icon/illustration, service name, short description, hover animation, arrow link
-- Clicking a card navigates to the relevant /services/[slug] page
+### 8.3 Services Section (`ServicesGrid`)
+- Bento-grid layout detailing 11 core agency offerings
+- Staggered entrance animations, icon mapping, and technical deliverable breakdowns
 
-### 8.4 Trust / Company Highlights
-- Agency positioning statement
-- **IMPORTANT:** Do not display fake statistics. Show configurable placeholder metrics or omit until real data is available.
-- Possible items: Founded year, Countries served, Team expertise highlights
+### 8.4 Why Choose Us (`WhyChooseUs`)
+- Differentiating engineering principles and client trust matrix
+- Focus on engineering rigour, product thinking, and zero bloat
 
-### 8.5 Featured Portfolio
-- 3–4 featured project cards
-- Clearly labelled "Coming Soon" if projects are not ready to be shown
-- Each card: project image, project name, service category, short description, link
+### 8.5 Process Section (`ProcessSection` + `Timeline`)
+- Pinned horizontal scrolling timeline powered by GSAP ScrollTrigger
+- 7 structured delivery milestones (Discovery, Planning, Design, Development, Testing, Launch, Support)
+- Illuminated milestone center nodes, progress tracking line, and team studio visual
 
-### 8.6 Why Choose Us
-- 4–6 differentiating value points
-- Icon + heading + short description per point
-- Content must be real and accurate (no fabricated claims)
+### 8.6 Agentic Factory 3D Section (`AgenticFactorySection` + `AgenticFactory3D`)
+- Interactive procedural Three.js WebGL simulation of the autonomous AI assembly pipeline
+- 5 operational stations: Engine (Synthesis), Admin (Guardrails), Storefront (UI), Cabinet (Storage), Checkout (Settlement)
+- Multiple camera angles (ISO, Front, Top, Left, Right) and viewing modes (Assembled, Cutaway, Stations, Order)
 
-### 8.7 Development Process
-- Step-by-step visual process (numbered or timeline)
-- Steps: Discovery → Planning → Design → Development → Testing → Launch → Maintenance
+### 8.7 Featured Portfolio (`PortfolioSection`)
+- Clean portfolio grid with coming soon state until client project case studies are ready
 
-### 8.8 Technology Stack
-- Visual grid/carousel of technologies used
-- Grouped by: Frontend, Backend, Mobile, AI/ML, Cloud, Databases, DevOps
+### 8.8 Technologies Section (`TechnologiesSection`)
+- 4-row continuous infinite ToolchainMarquee (Frontend, Backend, AI & Data, Cloud & DevOps)
+- Toggleable pause/resume and full reduced-motion accessibility support
 
-### 8.9 Industries We Serve
-- Icon + label cards or visual section
-- Industries: Fintech, Healthtech, Edtech, E-commerce, SaaS, Enterprise, Logistics, Real Estate
+### 8.9 Industries We Serve (`IndustriesSection`)
+- Grid cards outlining domain solutions across Fintech, Healthtech, SaaS, E-commerce, Logistics, and Enterprise
 
-### 8.10 Team Section
-- Two founding members
-- Professional photograph (background removed or on neutral background)
-- Name: [To be provided]
-- Designation: [To be provided]
-- Brief bio: [To be provided]
-- No fabricated designations or qualifications
+### 8.10 Leadership Team (`TeamSection`)
+- Real high-resolution founder portraits (`image1.png`, `image2.png`) in `public/images/team/`
+- Verified titles: Founder & CEO and Co-Founder & CTO with tailored technical leadership bios
 
-### 8.11 Testimonials
-- Section placeholder ready for real testimonials
-- **Do not use fake testimonials**
-- If no testimonials available at launch, display a tasteful "Trusted by businesses worldwide" message and remove the section from the public page until real testimonials are collected
+### 8.11 FAQ Section (`FAQSection`)
+- Interactive accessible accordion answering key engagement questions (IP ownership, billing, sprint timelines)
 
-### 8.12 FAQ Section
-- Accordion component
-- 6–8 relevant questions covering: pricing, process, timeline, communication, IP ownership, location/timezone
-- All content must be accurate and agreed upon by the agency
+### 8.12 Contact Section (`ContactSection` + `ContactForm`)
+- Interactive lead inquiry form embedded directly into the single page flow
+- Full client and server-side validation via React Hook Form and Zod with Resend email integration
 
-### 8.13 Contact / Lead Generation
-- Section-level contact prompt with CTA linking to /contact
-- Possibly embed a short inline contact form
-
-### 8.14 Footer
-- Logo and short tagline
-- Service links
-- Company links (About, Portfolio, Insights, Contact)
-- Legal links (Privacy Policy, Terms of Service)
-- Social media icons (LinkedIn, Twitter/X, GitHub — if applicable)
-- Copyright notice
+### 8.13 Footer (`Footer`)
+- Modern dark brand footer with sitemap anchor links, timezone availability, and copyright notices
 - WhatsApp contact button (floating, optional)
 
 ---

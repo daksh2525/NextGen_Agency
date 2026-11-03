@@ -1,8 +1,8 @@
 # Technical Architecture Document
 **NextGen Agency — Software Development Agency Website**
-**Version:** 1.0.0
-**Status:** Proposed — Pending Initialization
-**Last Updated:** 2026-11-02
+**Version:** 2.2.0
+**Status:** Active — Single Page Application (SPA) Architecture
+**Last Updated:** 2026-11-03
 
 ---
 
@@ -48,17 +48,16 @@ The site is a **marketing and lead generation website** — not a SaaS applicati
 
 | Layer | Technology | Version | Rationale |
 |-------|-----------|---------|-----------|
-| Framework | **Next.js** | 14+ (App Router) | SSG/ISR for SEO + performance, React ecosystem |
-| Language | **TypeScript** | 5+ | Type safety, better IDE support, maintainability |
-| Styling | **Tailwind CSS** | 3.4+ | Utility-first, consistent design tokens, fast iteration |
-| Animation | **Framer Motion** | 11+ | Production-grade React animations, excellent API |
-| 3D / Parallax | **CSS 3D transforms** + Framer Motion | — | Lightweight; Three.js only if complex 3D is needed |
-| Icons | **Lucide React** | latest | Clean, consistent, tree-shakeable icon library |
-| Forms | **React Hook Form** + **Zod** | latest | Type-safe form handling + validation schema |
-| Package Manager | **pnpm** | 8+ | Fast, disk-efficient, deterministic |
-| Linting | **ESLint** (Next.js config) | latest | Enforce code quality |
-| Formatting | **Prettier** | latest | Consistent code style |
-| Git Hooks | **Husky** + **lint-staged** | latest | Pre-commit quality gates |
+| Framework | **Next.js** | 16.4.3 (App Router) | High performance, static rendering, React 19 compatibility |
+| Language | **TypeScript** | 5.8+ | Strict type safety, no any, typed contracts |
+| Styling | **Tailwind CSS** | 4.x | CSS-native theme tokens (@theme in globals.css) |
+| Animation | **GSAP & @gsap/react** | 3.15+ | ScrollTrigger horizontal pinned timeline physics |
+| Motion | **Framer Motion** | 14.9+ | Stagger, viewport transitions, gestures |
+| 3D / WebGL | **Three.js** | 0.187+ | Procedural WebGL 3D Agentic Factory and Prisma Hero |
+| Icons | **Lucide React** | 1.66+ | Tree-shakeable modern vector iconography |
+| Forms | **React Hook Form** + **Zod** | 7.91+ / 4.6+ | Type-safe form handling + validation |
+| Package Manager | **pnpm** | 12.16+ | Fast, deterministic package resolution |
+| Email Service | **Resend** | 6.37+ | Serverless transactional email API |
 
 ### Optional / Conditional
 
@@ -169,48 +168,35 @@ pages/       → Next.js App Router pages (route files)
 
 ## 6. Routing Strategy
 
-### Next.js App Router
+### Single Page Application (SPA) with In-Page Anchors
 
-All routes use the Next.js 14 App Router (`/app` directory).
+The website is architected as a high-converting, unified **Single Page Application (SPA)** with smooth in-page hash anchors. Duplicate separate route pages (`/services`, `/portfolio`, `/about`, `/contact`, `/technologies`, `/industries`) were consolidated directly into the homepage pipeline to maximize conversion and user flow.
 
 ```
 app/
-├── layout.tsx              ← Root layout (Navbar, Footer, Providers)
-├── page.tsx                ← Homepage (/)
-├── not-found.tsx           ← 404 page
+├── layout.tsx              ← Root layout (LiquidHeader, Footer)
+├── page.tsx                ← Unified SPA Homepage with all key sections
+├── not-found.tsx           ← Custom 404 page
 ├── error.tsx               ← Error boundary
-├── services/
-│   ├── page.tsx            ← /services
-│   └── [slug]/
-│       └── page.tsx        ← /services/[slug]
-├── portfolio/
-│   ├── page.tsx            ← /portfolio
-│   └── [slug]/
-│       └── page.tsx        ← /portfolio/[slug]
-├── technologies/
-│   └── page.tsx
-├── industries/
-│   ├── page.tsx
-│   └── [slug]/
-│       └── page.tsx
-├── insights/               ← Post-MVP
-│   ├── page.tsx
-│   └── [slug]/
-│       └── page.tsx
-├── about/
-│   └── page.tsx
-├── contact/
-│   └── page.tsx
+├── sitemap.ts              ← Dynamic XML sitemap generator
 └── api/
     └── contact/
-        └── route.ts        ← Contact form API
+        └── route.ts        ← Serverless contact form submission endpoint
 ```
 
-### Route Generation
-- Service page slugs are defined in a static data file (`/data/services.ts`).
-- Portfolio project slugs are defined in a static data file (`/data/portfolio.ts`).
-- `generateStaticParams()` generates all static pages at build time.
-- Dynamic segments use typed params via TypeScript.
+### In-Page Anchor Sections & Scrollspy
+Navigation links in `LiquidHeader` use smooth in-page anchor jumping with active real-time scrollspy:
+- `#home` — Prisma Hero section with interactive WebGL prism and CTAs
+- `#services` — Bento grid showcasing 11 core agency capabilities
+- `#why-nextgen` — Value proposition & differentiator grid
+- `#process` — Pinned horizontal scrolling Timeline powered by GSAP ScrollTrigger
+- `#agentic-factory` — Interactive procedural Three.js 3D assembly line machine
+- `#portfolio` — Featured client project showcase
+- `#tech-stack` — Infinite marquee toolchain & modern engineering stack
+- `#industries` — Vertical enterprise domains served
+- `#team` — Leadership founder and co-founder profiles
+- `#faq` — Accordion answering common client questions
+- `#contact` — Interactive contact form embedded directly in the homepage flow
 
 ---
 
@@ -432,8 +418,6 @@ Each component will include JSDoc comments with:
 
 ```
 /NextGen_Agency/
-├── .github/
-│   └── workflows/          ← CI/CD workflows (future)
 ├── docs/
 │   ├── prd.md
 │   ├── architecture.md
@@ -444,80 +428,68 @@ Each component will include JSDoc comments with:
 │   └── security.md
 ├── public/
 │   ├── images/
+│   │   ├── team/            ← High-res founder portraits (image1.png, image2.png)
 │   │   ├── hero/
 │   │   ├── services/
 │   │   ├── portfolio/
-│   │   ├── team/
-│   │   ├── technologies/
 │   │   └── og/
-│   ├── icons/
-│   └── sitemap.xml
+│   ├── team/                ← Symlink to images/team/
+│   ├── videos/
+│   └── icons/
+├── components/              ← Root symlink to src/components/
+│   └── ui/
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx
-│   │   ├── page.tsx
+│   │   ├── layout.tsx       ← Root layout with LiquidHeader and Footer
+│   │   ├── page.tsx         ← Single Page Application homepage composing all sections
 │   │   ├── not-found.tsx
 │   │   ├── error.tsx
-│   │   ├── globals.css
-│   │   ├── services/
-│   │   │   ├── page.tsx
-│   │   │   └── [slug]/
-│   │   │       └── page.tsx
-│   │   ├── portfolio/
-│   │   │   ├── page.tsx
-│   │   │   └── [slug]/
-│   │   │       └── page.tsx
-│   │   ├── technologies/
-│   │   │   └── page.tsx
-│   │   ├── industries/
-│   │   │   ├── page.tsx
-│   │   │   └── [slug]/
-│   │   │       └── page.tsx
-│   │   ├── about/
-│   │   │   └── page.tsx
-│   │   ├── contact/
-│   │   │   └── page.tsx
+│   │   ├── globals.css      ← Tailwind v4 CSS design tokens (@theme)
+│   │   ├── sitemap.ts       ← Dynamic sitemap generator
 │   │   └── api/
 │   │       └── contact/
-│   │           └── route.ts
+│   │           └── route.ts ← Contact form submission endpoint
 │   ├── components/
 │   │   ├── atoms/
 │   │   │   ├── Button/
-│   │   │   │   ├── Button.tsx
-│   │   │   │   └── index.ts
 │   │   │   ├── SectionHeading/
-│   │   │   ├── Badge/
-│   │   │   ├── TechBadge/
-│   │   │   └── AnimatedText/
+│   │   │   └── Badge/
 │   │   ├── molecules/
 │   │   │   ├── ServiceCard/
 │   │   │   ├── ProjectCard/
-│   │   │   ├── TeamCard/
-│   │   │   ├── DeviceMockup/
-│   │   │   ├── FAQAccordion/
-│   │   │   ├── ProcessStep/
-│   │   │   ├── TestimonialCard/
-│   │   │   ├── IndustryCard/
-│   │   │   └── FormField/
+│   │   │   └── FAQAccordion/
 │   │   ├── organisms/
-│   │   │   ├── Navbar/
 │   │   │   ├── HeroSection/
 │   │   │   ├── ServicesGrid/
-│   │   │   ├── TrustSection/
-│   │   │   ├── PortfolioSection/
 │   │   │   ├── WhyChooseUs/
 │   │   │   ├── ProcessSection/
+│   │   │   ├── AgenticFactorySection/ ← 3D autonomous assembly line WebGL section
+│   │   │   ├── PortfolioSection/
 │   │   │   ├── TechnologiesSection/
 │   │   │   ├── IndustriesSection/
 │   │   │   ├── TeamSection/
-│   │   │   ├── TestimonialsSection/
 │   │   │   ├── FAQSection/
 │   │   │   ├── ContactSection/
-│   │   │   ├── ContactForm/
+│   │   │   ├── LiquidHeader/          ← Floating liquid glass navbar with scrollspy
 │   │   │   └── Footer/
-│   │   └── providers/
-│   │       └── Providers.tsx  ← Client providers wrapper
+│   │   └── ui/                        ← Reusable shadcn & WebGL UI primitives
+│   │       ├── agentic-factory-3d.tsx ← Procedural Three.js 3D machine
+│   │       ├── timeline.tsx           ← GSAP horizontal pinned timeline
+│   │       ├── prisma-hero.tsx        ← Interactive WebGL glass prism
+│   │       ├── agency-bento-grid.tsx  ← Bento grid component
+│   │       └── liquid-glass-navbar.tsx
 │   ├── data/
+│   │   ├── services.ts
+│   │   ├── portfolio.ts
+│   │   ├── team.ts                    ← Leadership bios and photo mappings
+│   │   ├── technologies.ts
+│   │   ├── industries.ts
+│   │   ├── faqs.ts
+│   │   └── navigation.ts
+│   ├── hooks/
+│   ├── lib/
+│   └── types/
+```
 │   │   ├── services.ts
 │   │   ├── portfolio.ts
 │   │   ├── team.ts

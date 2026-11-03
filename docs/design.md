@@ -1,8 +1,8 @@
 # UI/UX Design System
 **NextGen Agency — Software Development Agency Website**
-**Version:** 1.0.0
-**Status:** Active
-**Last Updated:** 2026-11-02
+**Version:** 2.2.0
+**Status:** Active — Production Single Page Application & WebGL Design System
+**Last Updated:** 2026-11-03
 
 ---
 
@@ -671,68 +671,25 @@ staggerContainer: {
 
 ---
 
-## 19. 3D Parallax Interactions
+## 19. Interactive 3D & Advanced Motion Architecture
 
-### Hero Section Parallax
+The NextGen Agency website integrates three specialized WebGL and motion systems to communicate high technical craft:
 
-#### Mouse Position Tracking
-```typescript
-// Track normalized mouse position (-0.5 to 0.5)
-const mouseX = useMotionValue(0);
-const mouseY = useMotionValue(0);
+### 1. Prisma Hero (`PrismaHero`)
+- **Technology:** WebGL, React Three Fiber, Custom Shader Glass Dispersion
+- **Physics:** Real-time cursor tracking with inertia, prismatic refraction, internal chromatic aberration, and particle flow
+- **Fallback:** Gracefully handles high-density screens and falls back cleanly if WebGL context is unavailable
 
-const handleMouseMove = (e: MouseEvent) => {
-  const { clientX, clientY } = e;
-  const { innerWidth, innerHeight } = window;
-  mouseX.set((clientX / innerWidth) - 0.5);
-  mouseY.set((clientY / innerHeight) - 0.5);
-};
-```
+### 2. Autonomous Agentic Factory 3D (`AgenticFactory3D`)
+- **Technology:** Three.js procedural geometry (`RoundedBoxGeometry`, `BufferGeometryUtils`), RoomEnvironment lighting
+- **Interactive Controls:** OrbitControls (drag to rotate, pinch/scroll to zoom), 5 camera presets (ISO, Front, Top, Left, Right), 4 operating modes (Assembled, Cutaway, Stations, Order)
+- **Zero Heavy Assets:** 100% procedural WebGL code — no external 3D model files (.gltf/.glb) or large texture downloads required
+- **Lifecycle:** Managed cleanly with ResizeObserver and component unmount disposal to prevent memory leaks
 
-#### Transform Mappings
-```typescript
-// Laptop mockup
-const laptopRotateX = useTransform(mouseY, [-0.5, 0.5], [8, -8]);
-const laptopRotateY = useTransform(mouseX, [-0.5, 0.5], [-8, 8]);
-const laptopTranslateX = useTransform(mouseX, [-0.5, 0.5], [-12, 12]);
-const laptopTranslateY = useTransform(mouseY, [-0.5, 0.5], [-8, 8]);
-
-// Smartphone mockup (different intensity for depth)
-const phoneRotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
-const phoneRotateY = useTransform(mouseX, [-0.5, 0.5], [12, -12]);
-const phoneTranslateX = useTransform(mouseX, [-0.5, 0.5], [20, -20]);
-const phoneTranslateY = useTransform(mouseY, [-0.5, 0.5], [-12, 12]);
-```
-
-#### Spring Physics
-```typescript
-const springConfig = { stiffness: 120, damping: 25, mass: 0.8 };
-
-const smoothLaptopRotateX = useSpring(laptopRotateX, springConfig);
-const smoothLaptopRotateY = useSpring(laptopRotateY, springConfig);
-// ... etc for all transforms
-```
-
-#### Mouse Leave Behavior
-```typescript
-const handleMouseLeave = () => {
-  mouseX.set(0); // Springs will animate back
-  mouseY.set(0);
-};
-```
-
-#### CSS Perspective
-```css
-.parallax-container {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-```
-
-#### Device Disabling
-- Disable on: `window.matchMedia('(pointer: coarse)').matches` (touch devices)
-- Disable on: `window.matchMedia('(prefers-reduced-motion: reduce)').matches`
-- Touch devices get: static display of devices at a fixed tasteful angle
+### 3. Pinned Process Journey (`Timeline`)
+- **Technology:** GSAP 3.15, `@gsap/react`, ScrollTrigger with `pin: true`
+- **Physics:** Calculates dynamic track distance (`track.scrollWidth - window.innerWidth`), pins the viewport vertically while user scrubs horizontally across all 7 milestones
+- **Milestone Interactivity:** Active progress line fills in NextGen brand orange (`#f0782b`), while milestone nodes illuminate dynamically with animated stems and card highlights
 
 ---
 
@@ -774,26 +731,23 @@ const handleMouseLeave = () => {
 
 ## 21. Section Theming
 
-The website alternates between dark and light sections to create visual rhythm:
+The single page website alternates between deep dark charcoal and subtle elevated surfaces to create a cinematic, technical visual rhythm:
 
-| Section | Background | Text | Theme |
-|---------|-----------|------|-------|
-| Navbar | Glass/Dark | Warm White | Dark |
-| Hero | Charcoal `#171717` | Warm White | Dark |
-| Services (Bento Grid) | Charcoal `#171717` | Warm White | Dark |
-| Trust / Highlights | Warm White `#F7F5F0` | Charcoal | Light |
-| Portfolio (Featured) | Charcoal | Warm White | Dark |
-| Why Choose Us | Warm White | Charcoal | Light |
-| Process | Charcoal | Warm White | Dark |
-| Technologies | Warm White | Charcoal | Light |
-| Industries | Charcoal | Warm White | Dark |
-| Team | Charcoal | Warm White | Dark |
-| Testimonials | Warm White | Charcoal | Light |
-| FAQ | Charcoal | Warm White | Dark |
-| Contact Section | Warm White | Charcoal | Light |
-| Footer | `#0D0D0D` (deeper black) | Warm White | Dark |
-
-This alternating pattern creates clear visual separation between sections without heavy dividers.
+| Section | ID | Background | Primary Text | Accent / Interactive |
+|---------|----|-----------|--------------|----------------------|
+| **Liquid Navbar** | — | Liquid Glass / Backdrop Blur | Warm White | Active Pill Glow, Orange Accent |
+| **Prisma Hero** | `#home` | Deep Black / Canvas | Warm White | Interactive WebGL Glass Dispersion |
+| **Services Grid** | `#services` | Charcoal `#141416` | Warm White | Bento Glow, Icon Mapping |
+| **Why NextGen** | `#why-nextgen` | Surface Grey `#1b1b1e` | Warm White | Differentiator Pillars, Metrics |
+| **Process Timeline** | `#process` | Deep Dark `#0d0e10` | Warm White | GSAP Horizontal Scroll, Glowing Nodes |
+| **Agentic Factory 3D** | `#agentic-factory` | Deep Dark `#0c0d0e` | Warm White | Procedural Three.js 3D Machine, OrbitControls |
+| **Featured Portfolio** | `#portfolio` | Charcoal `#111111` | Warm White | Case Study Cards, Coming Soon State |
+| **Technologies** | `#tech-stack` | Surface Grey `#18191c` | Warm White | 4-Row Continuous Infinite Marquee |
+| **Industries** | `#industries` | Deep Dark `#121316` | Warm White | Domain Cards, Vertical Solutions |
+| **Leadership Team** | `#team` | Charcoal `#171717` | Warm White | High-Res Founder Portraits, Zoom Hover |
+| **Client FAQ** | `#faq` | Surface Grey `#1b1b1e` | Warm White | AnimatePresence Accordion |
+| **Contact & Inquiries** | `#contact` | Charcoal `#141416` | Warm White | Embedded Interactive Zod Form |
+| **Footer** | — | Deepest Black `#0a0a0b` | Warm White | In-Page Anchor Links, Copyright |
 
 ---
 

@@ -1,8 +1,8 @@
 # Persistent AI Project Context (Memory)
 **NextGen Agency — Software Development Agency Website**
-**Version:** 2.0.0
-**Last Updated:** 2026-11-02 (Session: Video fix verified)
-**Current Phase:** Phase 4 — Cinematic Hero (PrismaHero) — COMPLETE
+**Version:** 2.2.0
+**Last Updated:** 2026-11-03 (Session: SPA Architecture, 3D Agentic Factory, GSAP Timeline, Leadership Portraits)
+**Current Phase:** Phase 6 — Production Ready SPA & 3D Interactive Pipeline — COMPLETE
 
 ---
 
@@ -52,17 +52,17 @@ Premium, international-standard, technically credible.
 
 ## 3. Team Information
 
-| Field | Status |
-|-------|--------|
-| Number of Founders | 2 |
-| Founder 1 Name | **NOT PROVIDED — Do not invent** |
-| Founder 1 Designation | **NOT PROVIDED — Do not invent** |
-| Founder 2 Name | **NOT PROVIDED — Do not invent** |
-| Founder 2 Designation | **NOT PROVIDED — Do not invent** |
-| Team Photos | **NOT PROVIDED — Awaiting client** |
+| Field | Status | Value / Source |
+|-------|--------|----------------|
+| Number of Founders | 2 | Verified in `src/data/team.ts` |
+| Founder 1 Designation | Provided | **Founder & CEO** |
+| Founder 1 Portrait | Provided | `public/images/team/image2.png` |
+| Founder 2 Designation | Provided | **Co-Founder & CTO** |
+| Founder 2 Portrait | Provided | `public/images/team/image1.png` |
+| Portrait Resolution | High-Res | 1254 × 1254 square portraits with hover zoom in `TeamSection` |
 
-> [!CAUTION]
-> Never invent team member names, designations, qualifications, or bios. `src/data/team.ts` uses "Founder Name" as a clearly-marked placeholder. The TeamSection component detects this and shows a placeholder UI.
+> [!NOTE]
+> Portraits are loaded from `public/images/team/` and accessible via both `/images/team/...` and `/team/...` (via root public symlink). Bio descriptions reflect strategic engineering and AI architecture leadership.
 
 ---
 
