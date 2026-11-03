@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  ArrowRight,
   House,
   Layers,
   Workflow,
-  Cpu,
   FolderKanban,
+  Cpu,
   Users,
 } from "lucide-react";
 import { LiquidNavbar } from "@/components/ui/liquid-glass-navbar";
@@ -26,37 +25,50 @@ const links = [
   { label: "About", href: "#team", icon: <Users {...ICON} />, fx: "pop" as const },
 ];
 
+// Ordered list of section IDs mapped to their corresponding navbar link index
+const sectionEntries: Array<{ id: string; index: number }> = [
+  { id: "faq", index: 5 },
+  { id: "team", index: 5 },
+  { id: "industries", index: 4 },
+  { id: "tech-stack", index: 4 },
+  { id: "portfolio", index: 3 },
+  { id: "agentic-factory", index: 2 },
+  { id: "process", index: 2 },
+  { id: "why-nextgen", index: 1 },
+  { id: "services", index: 1 },
+  { id: "home", index: 0 },
+];
+
 export function LiquidHeader() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState(0);
+  const isClickingRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 80);
 
-      // Scrollspy: detect which section is currently in view
-      const sectionMapping: Record<string, number> = {
-        home: 0,
-        services: 1,
-        'why-nextgen': 1,
-        process: 2,
-        'agentic-factory': 2,
-        portfolio: 3,
-        'tech-stack': 4,
-        industries: 4,
-        team: 5,
-        faq: 5,
-      };
+      // Prevent scrollspy from overriding while an in-page click scroll is in flight
+      if (isClickingRef.current) return;
 
-      const sections = Object.keys(sectionMapping);
-      const scrollPos = window.scrollY + 200;
+      // If near the top, highlight Home
+      if (window.scrollY < 180) {
+        setActive(0);
+        return;
+      }
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActive(sectionMapping[sections[i]]);
-          break;
+      // Check section bounding rects relative to viewport observation line
+      const targetY = 160;
+
+      for (const entry of sectionEntries) {
+        const el = document.getElementById(entry.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= targetY && rect.bottom > targetY) {
+            setActive(entry.index);
+            return;
+          }
         }
       }
     };
@@ -68,22 +80,53 @@ export function LiquidHeader() {
 
   const handleNavChange = (index: number) => {
     setActive(index);
+    isClickingRef.current = true;
     const targetHash = links[index].href;
+
     if (window.location.pathname === "/") {
-      const targetEl = document.querySelector(targetHash);
-      if (targetEl) {
-        targetEl.scrollIntoView({ behavior: "smooth" });
-        return;
+      if (targetHash === "#home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const targetEl = document.querySelector(targetHash);
+        if (targetEl) {
+          const navOffset = 90;
+          const elementPosition = targetEl.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
       }
+
+      // Re-enable scrollspy after smooth scroll animation settles
+      setTimeout(() => {
+        isClickingRef.current = false;
+      }, 850);
+      return;
     }
+
     router.push(`/${targetHash}`);
   };
 
   const handleContactClick = () => {
+    isClickingRef.current = true;
     if (window.location.pathname === "/") {
       const contactEl = document.querySelector("#contact");
       if (contactEl) {
-        contactEl.scrollIntoView({ behavior: "smooth" });
+        const navOffset = 90;
+        const elementPosition = contactEl.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+
+        setTimeout(() => {
+          isClickingRef.current = false;
+        }, 850);
         return;
       }
     }
@@ -93,11 +136,13 @@ export function LiquidHeader() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-3 sm:top-4 z-50 px-2 sm:px-8">
       <div className="mx-auto flex justify-center sm:grid max-w-[1280px] sm:grid-cols-[1fr_auto_1fr] items-center">
+        {/* Brand Logo */}
         <Link
           href="/#home"
           onClick={(e) => {
             if (window.location.pathname === "/") {
               e.preventDefault();
+              setActive(0);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
@@ -108,28 +153,29 @@ export function LiquidHeader() {
           Next<span className="text-orange">Gen</span>
         </Link>
 
-        <div
-          className={`pointer-events-auto col-start-2 justify-self-center ${
-            scrolled ? "liquid-header-scrolled" : ""
-          }`}
-        >
+        {/* Liquid Glass Navigation Bar with Scrollspy */}
+        <div className="pointer-events-auto">
           <LiquidNavbar
-            tone="dark"
+            items={links}
             active={active}
             onChange={handleNavChange}
-            items={links.map(({ label, icon, fx }) => ({ label, icon, fx }))}
+            tone="dark"
+            sound={false}
           />
         </div>
 
-        <Button
-          onClick={handleContactClick}
-          className="pointer-events-auto hidden justify-self-end md:inline-flex"
-        >
-          Contact Us <ArrowRight size={18} />
-        </Button>
+        {/* Contact CTA */}
+        <div className="pointer-events-auto hidden justify-self-end sm:block">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleContactClick}
+            className="!rounded-full px-6 shadow-orange-glow text-sm font-semibold"
+          >
+            Contact Us →
+          </Button>
+        </div>
       </div>
     </header>
   );
 }
-
-export default LiquidHeader;
