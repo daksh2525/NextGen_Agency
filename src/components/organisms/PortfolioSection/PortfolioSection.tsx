@@ -17,6 +17,7 @@ export function PortfolioSection() {
 
   return (
     <section
+      id="portfolio"
       className="bg-[#111111] section-padding"
       aria-labelledby="portfolio-heading"
     >
@@ -48,7 +49,7 @@ export function PortfolioSection() {
               <p className="text-muted-grey text-[15px] max-w-sm leading-relaxed">
                 We are currently preparing our case studies and project showcases.
                 Check back soon or{' '}
-                <Link href="/contact" className="text-orange underline underline-offset-2 hover:no-underline">
+                <Link href="#contact" className="text-orange underline underline-offset-2 hover:no-underline">
                   contact us
                 </Link>{' '}
                 to discuss your project.
@@ -86,11 +87,11 @@ export function PortfolioSection() {
           viewport={VIEWPORT_ONCE}
         >
           <Link
-            href="/portfolio"
+            href="#contact"
             className="inline-flex items-center gap-2 text-orange font-semibold text-[15px] hover:gap-3 transition-all duration-200 group"
-            aria-label="View all portfolio projects"
+            aria-label="Discuss a project with us"
           >
-            View All Work
+            Discuss Your Project
             <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </motion.div>

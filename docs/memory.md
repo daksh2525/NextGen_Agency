@@ -192,7 +192,7 @@ src/components/
 | IndustriesSection | `IndustriesSection/IndustriesSection.tsx` | ✅ Complete — 8 industry cards |
 | TeamSection | `TeamSection/TeamSection.tsx` | ✅ Complete — placeholder-aware |
 | FAQSection | `FAQSection/FAQSection.tsx` | ✅ Complete — accordion, CTA |
-| ContactSection | `ContactSection/ContactSection.tsx` | ✅ Complete — dark CTA card |
+| ContactSection | `ContactSection/ContactSection.tsx` | Removed from homepage per user request |
 | ContactForm | `ContactForm/ContactForm.tsx` | ✅ Complete — RHF + Zod + honeypot |
 | Footer | `Footer/Footer.tsx` | ✅ Complete — 4-col, social SVG icons |
 
@@ -397,7 +397,8 @@ Never commit `.env.local` — it is gitignored.
 | 2026-11-02 (Session 1) | Documentation created | 7 docs files created |
 | 2026-11-02 (Session 2) | Foundation + Core UI | Next.js 16 initialized, all atoms/molecules/organisms written, data files, types, lib, hooks |
 | 2026-11-02 (Session 3) | Completion + Bug Fixes | All pages written, API route, not-found, error; fixed lucide icon names, Zod v4 API, SectionHeading id prop, `'use client'` on organisms, disabled cacheComponents — **pnpm build passes 0 errors** |
-| 2026-11-02 (Session 4) | UI Components Integration | LiquidButton shared <Button>; ToolchainMarquee (Technologies); RadialScrollGallery (Process); Compact 4-Card Bento Grid (WhyChooseUs); Animated Services Bento Grid (ServicesGrid) | ← CURRENT |
+| 2026-11-03 (Session 5) | Single Page Application (SPA) Conversion | Removed duplicate pages (/services, /portfolio, /technologies, /industries, /about, /contact, /nav-demo). Converted to single page with smooth anchor scroll (#home, #services, #why-nextgen, #process, #portfolio, #tech-stack, #industries, #team, #faq, #contact). Integrated interactive ContactForm directly into homepage. |
+| 2026-11-03 (Session 6) | 3D Agentic Factory & Horizontal Timeline Integration | Integrated `AgenticFactory3D` into `src/components/ui/agentic-factory-3d.tsx` and created `AgenticFactorySection`. Replaced `ProcessSection` with bulletproof GSAP `pin: true` horizontal scrolling `Timeline` (`src/components/ui/timeline.tsx`) with `@gsap/react`, smooth track translation, animated progress line, illuminated milestone dots, and alternating cards. Switched founder/co-founder photos in `src/data/team.ts`. tsc --noEmit 0 errors. | ← CURRENT |
 
 ---
 

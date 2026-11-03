@@ -1,8 +1,16 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Manrope } from 'next/font/google';
 import './globals.css';
 import { LiquidHeader } from "@/components/organisms/LiquidHeader/LiquidHeader"
 import { Footer } from '@/components/organisms/Footer';
+
+// ─── Viewport ─────────────────────────────────────────────────────────────────
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#171717',
+};
 
 // ─── Fonts ───────────────────────────────────────────────────────────────────
 const inter = Inter({
@@ -70,7 +78,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${manrope.variable}`}
     >
-      <body className="min-h-screen bg-charcoal text-warm-white font-body antialiased">
+      <body className="min-h-screen bg-charcoal text-warm-white font-body antialiased overflow-x-hidden w-full">
        <LiquidHeader />
         {/* Skip to main content — accessibility */}
         <a

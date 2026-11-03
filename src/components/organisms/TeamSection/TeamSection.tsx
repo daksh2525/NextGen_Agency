@@ -18,20 +18,20 @@ function LinkedInIcon({ className }: { className?: string }) {
 }
 
 /**
- * Team section — two founder cards on dark background.
- * Photos and bios are placeholder-aware (no invented data).
- * See docs/prd.md Section 8.10 and docs/memory.md Section 3.
+ * Team section — founder and co-founder cards on dark background.
  */
 export function TeamSection() {
-  const isPlaceholder = (name: string) => name === 'Founder Name';
-
   return (
-    <section className="bg-charcoal section-padding" aria-labelledby="team-heading">
+    <section
+      id="team"
+      className="bg-charcoal section-padding"
+      aria-labelledby="team-heading"
+    >
       <div className="container-site">
         <SectionHeading
           id="team-heading"
           eyebrow="OUR TEAM"
-          heading="The Founders"
+          heading="The Leadership"
           description="Two engineers who built this agency around a simple idea: great software, delivered with integrity."
           align="center"
           theme="dark"
@@ -48,11 +48,18 @@ export function TeamSection() {
             <motion.div
               key={member.id}
               variants={fadeUp}
-              className="rounded-2xl border border-border-dark bg-surface-grey overflow-hidden"
+              className="rounded-2xl border border-border-dark bg-surface-grey overflow-hidden group hover:border-orange/30 transition-all duration-300"
             >
               {/* Photo area */}
-              <div className="h-64 bg-[#1a1a1a] relative overflow-hidden flex items-center justify-center">
-                {isPlaceholder(member.name) ? (
+              <div className="h-72 sm:h-80 bg-[#161616] relative overflow-hidden flex items-center justify-center">
+                {member.photo ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={member.photo}
+                    alt={`${member.name} — ${member.designation}`}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
                   <div className="flex flex-col items-center gap-3 text-muted-grey">
                     <div className="h-16 w-16 rounded-full bg-border-dark flex items-center justify-center">
                       <User className="h-8 w-8" aria-hidden="true" />
@@ -61,49 +68,39 @@ export function TeamSection() {
                       Founder photo coming soon
                     </p>
                   </div>
-                ) : (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={member.photo}
-                    alt={`${member.name} — ${member.designation}`}
-                    className="w-full h-full object-cover"
-                  />
                 )}
+                {/* Subtle gradient overlay at bottom of photo */}
+                <div
+                  className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-surface-grey to-transparent pointer-events-none"
+                  aria-hidden="true"
+                />
                 {/* Subtle geometric decoration */}
                 <div
-                  className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full border border-orange/10"
+                  className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full border border-orange/10 pointer-events-none"
                   aria-hidden="true"
                 />
                 <div
-                  className="absolute -top-4 -left-4 h-16 w-16 rounded-full border border-orange/10"
+                  className="absolute -top-4 -left-4 h-16 w-16 rounded-full border border-orange/10 pointer-events-none"
                   aria-hidden="true"
                 />
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                {isPlaceholder(member.name) ? (
-                  <p className="text-sm text-muted-grey italic">
-                    Founder information coming soon.
-                  </p>
-                ) : (
-                  <>
-                    <h3 className="font-heading font-bold text-xl text-warm-white">{member.name}</h3>
-                    <p className="text-orange font-medium text-sm mt-1 mb-3">{member.designation}</p>
-                    <p className="text-muted-grey text-sm leading-relaxed">{member.bio}</p>
-                    {member.linkedIn && member.linkedIn !== '#' && (
-                      <a
-                        href={member.linkedIn}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center gap-2 text-sm text-muted-grey hover:text-orange transition-colors duration-200"
-                        aria-label={`${member.name} on LinkedIn`}
-                      >
-                        <LinkedInIcon className="h-4 w-4" />
-                        LinkedIn
-                      </a>
-                    )}
-                  </>
+              <div className="p-6 relative">
+                <h3 className="font-heading font-bold text-xl text-warm-white">{member.name}</h3>
+                <p className="text-orange font-medium text-sm mt-1 mb-3">{member.designation}</p>
+                <p className="text-muted-grey text-sm leading-relaxed">{member.bio}</p>
+                {member.linkedIn && member.linkedIn !== '#' && (
+                  <a
+                    href={member.linkedIn}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-2 text-sm text-muted-grey hover:text-orange transition-colors duration-200"
+                    aria-label={`${member.name} on LinkedIn`}
+                  >
+                    <LinkedInIcon className="h-4 w-4" />
+                    LinkedIn
+                  </a>
                 )}
               </div>
             </motion.div>

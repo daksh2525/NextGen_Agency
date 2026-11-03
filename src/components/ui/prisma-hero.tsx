@@ -9,7 +9,6 @@
  */
 
 import React, { useRef } from "react";
-import { useRouter } from "next/navigation";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -244,7 +243,6 @@ function ScrollIndicator() {
 
 export function PrismaHero() {
   const prefersReducedMotion = useReducedMotion();
-  const router = useRouter();
 
   const headlineWordCount = 4;
   const headlineDelay = 0.5;
@@ -253,6 +251,7 @@ export function PrismaHero() {
 
   return (
     <section
+      id="home"
       className="relative flex min-h-screen w-full flex-col overflow-hidden bg-[#111111]"
       aria-label="Hero — Our Work Never Stops"
     >
@@ -280,7 +279,7 @@ export function PrismaHero() {
             <div>
               <h1
                 className="font-heading font-extrabold leading-[1.04] text-[#F5F5F5]"
-                style={{ fontSize: "clamp(3rem, 7.5vw, 6.5rem)" }}
+                style={{ fontSize: "clamp(2.25rem, 7vw, 6.5rem)" }}
               >
                 <WordsPullUpMultiStyle
                   segments={[
@@ -330,7 +329,7 @@ export function PrismaHero() {
               >
                 <Button
                   size="md"
-                  onClick={() => router.push("/contact")}
+                  href="#contact"
                   rightIcon={
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   }
@@ -341,7 +340,7 @@ export function PrismaHero() {
                 <Button
                   variant="secondary"
                   size="md"
-                  onClick={() => router.push("/portfolio")}
+                  href="#portfolio"
                 >
                   Explore Our Work
                 </Button>
@@ -353,7 +352,7 @@ export function PrismaHero() {
                 variants={fadeUpVariant}
                 initial={prefersReducedMotion ? "visible" : "hidden"}
                 animate="visible"
-                className="flex items-center gap-6 pt-1"
+                className="flex flex-wrap items-center gap-5 sm:gap-6 pt-1"
               >
                 {[
                   { label: "Countries Served", value: "10+" },

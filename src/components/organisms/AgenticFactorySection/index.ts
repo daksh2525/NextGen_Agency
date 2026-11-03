@@ -1,0 +1,1 @@
+export { AgenticFactorySection } from './AgenticFactorySection';

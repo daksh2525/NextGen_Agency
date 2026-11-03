@@ -71,6 +71,11 @@ export function Button({
         href.startsWith("http") ? "_blank" : "_self",
         "noopener,noreferrer"
       );
+    } else if (href.startsWith("#")) {
+      const el = document.querySelector(href);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     } else {
       router.push(href);
     }

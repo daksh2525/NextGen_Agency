@@ -70,6 +70,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -77,6 +78,8 @@ body {
   color: #f7f5f0;
   font-family: var(--font-body);
   line-height: 1.7;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* =============================================================================
@@ -118,7 +121,13 @@ body {
 .container-site {
   max-width: 1280px;
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-site {
+    padding-inline: 1.5rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -128,7 +137,13 @@ body {
 }
 
 .section-padding {
-  padding-block: 5rem;
+  padding-block: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding-block: 5rem;
+  }
 }
 
 @media (min-width: 1024px) {

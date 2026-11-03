@@ -39,7 +39,7 @@ export function Footer() {
     <footer className="bg-charcoal-deep border-t border-border-dark" aria-label="Site footer">
       <div className="container-site py-16 lg:py-20">
         {/* Main grid */}
-        <div className="grid gap-12 lg:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Col 1 — Brand */}
           <div className="lg:col-span-1">
             <Link href="/" aria-label="NextGen Agency home" className="inline-block mb-4">
@@ -161,7 +161,7 @@ export function Footer() {
           <p className="text-muted-grey text-sm">
             &copy; {currentYear} NextGen Agency. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-2">
             {footerLinks.legal.map((link) => (
               <Link
                 key={link.href}

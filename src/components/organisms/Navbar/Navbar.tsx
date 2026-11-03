@@ -170,7 +170,7 @@ export function Navbar() {
 
             {/* CTA + Mobile Toggle */}
             <div className="flex items-center gap-3">
-              <Link href="/contact" className="hidden lg:block">
+              <Link href="/#contact" className="hidden lg:block">
                 <Button variant="primary" size="sm" rightIcon={<ArrowRight className="h-4 w-4" />}>
                   Contact Us
                 </Button>
@@ -309,7 +309,7 @@ export function Navbar() {
 
               {/* Mobile CTA */}
               <div className="px-4 pb-6 mt-4">
-                <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                <Link href="/#contact" onClick={() => setMobileOpen(false)}>
                   <Button variant="primary" size="md" fullWidth rightIcon={<ArrowRight className="h-4 w-4" />}>
                     Start a Project
                   </Button>

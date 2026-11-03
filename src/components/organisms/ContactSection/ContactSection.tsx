@@ -1,69 +1,89 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ArrowRight, Calendar } from 'lucide-react';
-import { Button } from '@/components/atoms/Button/Button';
-import { fadeUp, VIEWPORT_ONCE } from '@/lib/animations';
+import React from 'react';
+import { Mail, MapPin, Clock } from 'lucide-react';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { ContactForm } from '@/components/organisms/ContactForm/ContactForm';
 
 /**
- * Contact CTA Section — full-width dark card with orange radial glow.
- * Prompts visitors to start a project or schedule a discovery call.
+ * ContactSection — interactive project enquiry section for Single Page Application.
+ * Embeds ContactForm with real-time validation, honeypot, and Resend email transmission.
  */
 export function ContactSection() {
   return (
-    <section className="bg-warm-white section-padding" aria-labelledby="contact-cta-heading">
+    <section
+      id="contact"
+      className="bg-charcoal py-16 sm:py-20 lg:py-24 relative overflow-hidden"
+      aria-labelledby="contact-heading"
+    >
       <div className="container-site">
-        <motion.div
-          className="relative overflow-hidden rounded-3xl bg-charcoal border border-border-dark p-12 md:p-16 text-center"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT_ONCE}
-        >
-          {/* Orange radial glow */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            aria-hidden="true"
-          >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-orange/10 rounded-full blur-[100px]" />
+        <SectionHeading
+          id="contact-heading"
+          eyebrow="GET IN TOUCH"
+          heading="Start Your Project With Us"
+          description="Tell us about your idea. We'll respond within 24 hours with an honest assessment and actionable roadmap."
+          align="center"
+          theme="dark"
+        />
+
+        <div className="mt-12 sm:mt-14 grid lg:grid-cols-3 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
+          {/* Main interactive form */}
+          <div className="lg:col-span-2 bg-surface-grey rounded-2xl border border-border-dark p-6 sm:p-8 md:p-10 shadow-card">
+            <h3 className="font-heading font-bold text-warm-white text-xl mb-1.5">
+              Send us a Message
+            </h3>
+            <p className="text-muted-grey text-sm mb-7">
+              Fields marked with an asterisk (<span className="text-orange">*</span>) are required.
+            </p>
+            <ContactForm />
           </div>
 
-          {/* Pill badge */}
-          <div className="relative z-10 mb-6 flex justify-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-orange/15 border border-orange/30 px-4 py-1.5 text-sm font-semibold text-orange">
-              <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" aria-hidden="true" />
-              Let&apos;s Build Something Great
-            </span>
-          </div>
+          {/* Contact Details Sidebar */}
+          <aside className="space-y-4 sm:space-y-5">
+            <div className="bg-surface-grey rounded-2xl border border-border-dark p-6">
+              <div className="flex items-center gap-3 text-orange mb-2.5">
+                <Clock className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                <h4 className="font-heading font-semibold text-warm-white text-base">
+                  Fast 24h Response
+                </h4>
+              </div>
+              <p className="text-muted-grey text-xs sm:text-sm leading-relaxed">
+                Every enquiry is directly reviewed by our principal engineers. We&apos;ll schedule a scoping call to align on technical goals.
+              </p>
+            </div>
 
-          <h2
-            id="contact-cta-heading"
-            className="relative z-10 font-heading font-bold text-warm-white text-[clamp(1.75rem,4vw,3rem)] leading-tight mb-4"
-          >
-            Ready to Start Your Project?
-          </h2>
-          <p className="relative z-10 text-muted-grey text-lg leading-relaxed max-w-2xl mx-auto mb-10">
-            Tell us about your idea. We&apos;ll respond within 24 hours with a clear plan and honest assessment of how we can help.
-          </p>
+            <div className="bg-surface-grey rounded-2xl border border-border-dark p-6">
+              <div className="flex items-center gap-3 text-orange mb-2.5">
+                <Mail className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                <h4 className="font-heading font-semibold text-warm-white text-base">
+                  Direct Email
+                </h4>
+              </div>
+              <p className="text-muted-grey text-xs sm:text-sm mb-2">Prefer to email our team directly?</p>
+              <a
+                href="mailto:hello@nextgenagency.dev"
+                className="text-orange text-sm font-medium hover:underline break-all"
+              >
+                hello@nextgenagency.dev
+              </a>
+            </div>
 
-          {/* CTAs */}
-          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              href="/contact"
-              rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
-            >
-              Start a Project
-            </Button>
-            <Button
-              href="/contact?type=call"
-              variant="secondary"
-              leftIcon={<Calendar className="h-4 w-4" aria-hidden="true" />}
-            >
-              Schedule a Call
-            </Button>
-          </div>
-        </motion.div>
+            <div className="bg-surface-grey rounded-2xl border border-border-dark p-6">
+              <div className="flex items-center gap-3 text-orange mb-2.5">
+                <MapPin className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                <h4 className="font-heading font-semibold text-warm-white text-base">
+                  Global Availability
+                </h4>
+              </div>
+              <p className="text-muted-grey text-xs sm:text-sm leading-relaxed">
+                Engineering studio based in India — partnering with founders and teams across North America, Europe, and Asia-Pacific.
+              </p>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
   );
 }
+
+export default ContactSection;

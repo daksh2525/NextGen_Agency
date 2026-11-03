@@ -80,7 +80,7 @@ export function ServicesGrid() {
               animationNum={1}
               customVariants={revealVariants}
               timelineRef={sectionRef}
-              className="flex-[7] min-h-[310px] flex flex-col justify-between relative bg-orange text-white overflow-hidden rounded-2xl border border-orange-light/30 p-6 sm:p-8 shadow-card group transition-all duration-300 hover:border-white/50"
+              className="flex-[7] min-h-[260px] sm:min-h-[310px] flex flex-col justify-between relative bg-orange text-white overflow-hidden rounded-2xl border border-orange-light/30 p-6 sm:p-8 shadow-card group transition-all duration-300 hover:border-white/50"
             >
               {/* Subtle tech background grid pattern */}
               <div
@@ -120,10 +120,10 @@ export function ServicesGrid() {
                     ))}
                   </div>
                   <Link
-                    href="/services/ai-ml-solutions"
+                    href="#contact"
                     className="inline-flex items-center gap-1 text-xs font-bold text-white hover:underline focus-ring rounded"
                   >
-                    Explore service
+                    Start this project
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -159,10 +159,10 @@ export function ServicesGrid() {
               <div className="pt-3 border-t border-border-dark flex items-center justify-between text-xs">
                 <span className="font-mono text-[11px] text-muted-grey">Next.js • Node • PostgreSQL</span>
                 <Link
-                  href="/services/full-stack-development"
+                  href="#contact"
                   className="font-medium text-orange hover:underline focus-ring rounded"
                 >
-                  Details →
+                  Start →
                 </Link>
               </div>
             </TimelineContent>
@@ -196,10 +196,10 @@ export function ServicesGrid() {
               <div className="flex items-center justify-between pt-3 border-t border-border-dark text-xs">
                 <span className="font-mono text-[11px] text-muted-grey">Stripe • Redis • AWS</span>
                 <Link
-                  href="/services/saas-development"
+                  href="#contact"
                   className="text-orange hover:underline font-medium focus-ring rounded"
                 >
-                  View →
+                  Start →
                 </Link>
               </div>
             </TimelineContent>
@@ -230,10 +230,10 @@ export function ServicesGrid() {
               <div className="flex items-center justify-between pt-3 border-t border-border-dark text-xs">
                 <span className="font-mono text-[11px] text-muted-grey">Pinecone • Weaviate • LangChain</span>
                 <Link
-                  href="/services/rag-applications"
+                  href="#contact"
                   className="text-orange hover:underline font-medium focus-ring rounded"
                 >
-                  View →
+                  Start →
                 </Link>
               </div>
             </TimelineContent>
@@ -264,10 +264,10 @@ export function ServicesGrid() {
               <div className="flex items-center justify-between pt-3 border-t border-border-dark text-xs">
                 <span className="font-mono text-[11px] text-muted-grey">LangGraph • CrewAI • TypeScript</span>
                 <Link
-                  href="/services/ai-agents"
+                  href="#contact"
                   className="text-orange hover:underline font-medium focus-ring rounded"
                 >
-                  View →
+                  Start →
                 </Link>
               </div>
             </TimelineContent>
@@ -304,10 +304,10 @@ export function ServicesGrid() {
               <div className="pt-3 border-t border-border-dark flex items-center justify-between text-xs">
                 <span className="font-mono text-[11px] text-muted-grey">React Native • Expo</span>
                 <Link
-                  href="/services/mobile-development"
+                  href="#contact"
                   className="font-medium text-orange hover:underline focus-ring rounded"
                 >
-                  Details →
+                  Start →
                 </Link>
               </div>
             </TimelineContent>
@@ -317,7 +317,7 @@ export function ServicesGrid() {
               animationNum={7}
               customVariants={revealVariants}
               timelineRef={sectionRef}
-              className="flex-[7] min-h-[310px] flex flex-col justify-between relative bg-orange text-white overflow-hidden rounded-2xl border border-orange-light/30 p-6 sm:p-8 shadow-card group transition-all duration-300 hover:border-white/50"
+              className="flex-[7] min-h-[260px] sm:min-h-[310px] flex flex-col justify-between relative bg-orange text-white overflow-hidden rounded-2xl border border-orange-light/30 p-6 sm:p-8 shadow-card group transition-all duration-300 hover:border-white/50"
             >
               {/* Subtle tech background grid pattern */}
               <div
@@ -357,10 +357,10 @@ export function ServicesGrid() {
                     ))}
                   </div>
                   <Link
-                    href="/services/web-development"
+                    href="#contact"
                     className="inline-flex items-center gap-1 text-xs font-bold text-white hover:underline focus-ring rounded"
                   >
-                    Explore service
+                    Start this project
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -372,15 +372,15 @@ export function ServicesGrid() {
         {/* Bottom CTA to view all 11 services */}
         <div className="mt-12 sm:mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
           <Button
-            href="/services"
+            href="#why-nextgen"
             variant="primary"
             size="md"
             rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
           >
-            Explore All 11 Services
+            Why Choose NextGen
           </Button>
           <Button
-            href="/contact"
+            href="#contact"
             variant="secondary"
             size="md"
           >

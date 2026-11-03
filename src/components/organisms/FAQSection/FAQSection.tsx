@@ -13,6 +13,7 @@ import { staggerContainer, fadeUp, VIEWPORT_ONCE } from '@/lib/animations';
 export function FAQSection() {
   return (
     <section
+      id="faq"
       className="bg-charcoal section-padding"
       aria-labelledby="faq-heading"
     >
@@ -46,7 +47,7 @@ export function FAQSection() {
           <p className="text-muted-grey mb-6 text-[15px]">
             Still have questions? We&apos;re happy to help.
           </p>
-          <Button href="/contact" variant="outline">
+          <Button href="#contact" variant="outline">
             Get in Touch
           </Button>
         </motion.div>

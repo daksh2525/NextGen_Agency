@@ -20,7 +20,11 @@ const ICON_MAP: Record<string, LucideIcon> = {
  */
 export function IndustriesSection() {
   return (
-    <section className="bg-charcoal section-padding" aria-labelledby="industries-heading">
+    <section
+      id="industries"
+      className="bg-charcoal section-padding"
+      aria-labelledby="industries-heading"
+    >
       <div className="container-site">
         <SectionHeading
           id="industries-heading"
@@ -44,7 +48,7 @@ export function IndustriesSection() {
               <motion.div
                 key={industry.slug}
                 variants={scaleIn}
-                className="group rounded-xl bg-surface-grey border border-border-dark p-5 text-center hover:border-orange/20 hover:scale-[1.02] transition-all duration-300"
+                className="group rounded-xl bg-surface-grey border border-border-dark p-3.5 sm:p-5 text-center hover:border-orange/20 hover:scale-[1.02] transition-all duration-300"
               >
                 <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-orange/10 text-orange group-hover:bg-orange/20 transition-colors duration-200">
                   <Icon className="h-5 w-5" aria-hidden="true" />

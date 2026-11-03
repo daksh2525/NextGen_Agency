@@ -3,6 +3,7 @@ import { HeroSection } from '@/components/organisms/HeroSection';
 import { ServicesGrid } from '@/components/organisms/ServicesGrid';
 import { WhyChooseUs } from '@/components/organisms/WhyChooseUs';
 import { ProcessSection } from '@/components/organisms/ProcessSection';
+import { AgenticFactorySection } from '@/components/organisms/AgenticFactorySection';
 import { PortfolioSection } from '@/components/organisms/PortfolioSection';
 import { TechnologiesSection } from '@/components/organisms/TechnologiesSection';
 import { IndustriesSection } from '@/components/organisms/IndustriesSection';
@@ -23,6 +24,7 @@ export default function HomePage() {
       <ServicesGrid />
       <WhyChooseUs />
       <ProcessSection />
+      <AgenticFactorySection />
       <PortfolioSection />
       <TechnologiesSection />
       <IndustriesSection />

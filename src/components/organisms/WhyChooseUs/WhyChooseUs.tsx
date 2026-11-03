@@ -237,18 +237,18 @@ export function WhyChooseUs() {
         {/* Bottom CTA Button */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
           <Button
-            href="/contact"
+            href="#contact"
             size="md"
             rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
           >
             Start Your Project With Us
           </Button>
           <Button
-            href="/services"
+            href="#services"
             variant="secondary-dark"
             size="md"
           >
-            Explore All 11 Services
+            Explore Services
           </Button>
         </div>
       </div>
