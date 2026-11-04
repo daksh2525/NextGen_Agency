@@ -267,9 +267,9 @@ export function PrismaHero() {
             animate="visible"
             className="mb-6 inline-flex"
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#F97316]/30 bg-[#F97316]/10 px-4 py-1.5 text-sm font-medium text-[#F97316]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#F97316]/30 bg-[#F97316]/10 px-4 py-1.5 text-xs sm:text-sm font-medium text-[#F97316] backdrop-blur-md shadow-[0_0_15px_rgba(249,115,22,0.15)]">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#F97316]" />
-              Software Engineering × Practical AI
+              AI-Native Engineering &amp; Product Studio
             </span>
           </motion.div>
 

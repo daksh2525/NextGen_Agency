@@ -59,7 +59,7 @@ export default function OpengraphImage() {
             maxWidth: '700px',
           }}
         >
-          Modern Software Engineering × Practical AI
+          AI-Native Engineering & Product Studio
         </div>
 
         {/* Badge */}
