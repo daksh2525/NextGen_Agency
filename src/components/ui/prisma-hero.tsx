@@ -312,11 +312,13 @@ export function PrismaHero() {
                 variants={fadeUpVariant}
                 initial={prefersReducedMotion ? "visible" : "hidden"}
                 animate="visible"
-                className="text-base leading-relaxed text-[#A1A1AA] lg:text-lg max-w-md"
+                className="text-base sm:text-[17px] leading-relaxed text-zinc-200 lg:text-lg max-w-md drop-shadow-sm"
               >
-                From ambitious ideas to powerful digital products, we build
-                innovative web applications, SaaS platforms and AI-powered
-                solutions — wherever the journey takes us.
+                We build high-performance web apps, scalable SaaS, and{" "}
+                <span className="text-orange font-semibold">
+                  production-grade AI
+                </span>{" "}
+                engineered to scale your business.
               </motion.p>
 
               {/* CTA buttons (liquid glass) */}
