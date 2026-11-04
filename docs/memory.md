@@ -398,7 +398,8 @@ Never commit `.env.local` — it is gitignored.
 | 2026-11-02 (Session 2) | Foundation + Core UI | Next.js 16 initialized, all atoms/molecules/organisms written, data files, types, lib, hooks |
 | 2026-11-02 (Session 3) | Completion + Bug Fixes | All pages written, API route, not-found, error; fixed lucide icon names, Zod v4 API, SectionHeading id prop, `'use client'` on organisms, disabled cacheComponents — **pnpm build passes 0 errors** |
 | 2026-11-03 (Session 5) | Single Page Application (SPA) Conversion | Removed duplicate pages (/services, /portfolio, /technologies, /industries, /about, /contact, /nav-demo). Converted to single page with smooth anchor scroll (#home, #services, #why-nextgen, #process, #portfolio, #tech-stack, #industries, #team, #faq, #contact). Integrated interactive ContactForm directly into homepage. |
-| 2026-11-03 (Session 6) | 3D Agentic Factory & Horizontal Timeline Integration | Integrated `AgenticFactory3D` into `src/components/ui/agentic-factory-3d.tsx` and created `AgenticFactorySection`. Replaced `ProcessSection` with bulletproof GSAP `pin: true` horizontal scrolling `Timeline` (`src/components/ui/timeline.tsx`) with `@gsap/react`, smooth track translation, animated progress line, illuminated milestone dots, and alternating cards. Switched founder/co-founder photos in `src/data/team.ts`. tsc --noEmit 0 errors. | ← CURRENT |
+| 2026-11-03 (Session 6) | 3D Agentic Factory & Horizontal Timeline Integration | Integrated `AgenticFactory3D` into `src/components/ui/agentic-factory-3d.tsx` and created `AgenticFactorySection`. Replaced `ProcessSection` with bulletproof GSAP `pin: true` horizontal scrolling `Timeline` (`src/components/ui/timeline.tsx`) with `@gsap/react`, smooth track translation, animated progress line, illuminated milestone dots, and alternating cards. Switched founder/co-founder photos in `src/data/team.ts`. tsc --noEmit 0 errors. |
+| 2026-11-04 (Session 7) | Deployment Guide Documentation | Created `docs/deployment.md` covering end-to-end Vercel setup, Resend domain verification, DNS configuration, Docker/VPS fallback, CI/CD, and rollback procedures. | ← CURRENT |
 
 ---
 
@@ -412,4 +413,5 @@ Never commit `.env.local` — it is gitignored.
 | Design system | `docs/design.md` |
 | Task tracking | `docs/tasks.md` |
 | Security | `docs/security.md` |
+| Deployment & Hosting | `docs/deployment.md` |
 | Current state | `docs/memory.md` (this file) |
