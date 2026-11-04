@@ -78,6 +78,27 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${manrope.variable}`}
     >
+      <head>
+        {/* Preload hero LCP image for instant first render */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-poster-mobile.webp"
+          type="image/webp"
+          media="(max-width: 767px)"
+          // @ts-expect-error Next.js HTML head supports fetchpriority
+          fetchpriority="high"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-poster.webp"
+          type="image/webp"
+          media="(min-width: 768px)"
+          // @ts-expect-error Next.js HTML head supports fetchpriority
+          fetchpriority="high"
+        />
+      </head>
       <body className="min-h-screen bg-charcoal text-warm-white font-body antialiased overflow-x-hidden w-full">
        <LiquidHeader />
         {/* Skip to main content — accessibility */}

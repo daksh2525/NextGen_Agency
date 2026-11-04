@@ -162,17 +162,41 @@ function VideoBackground() {
         }}
       />
 
+      {/* Instant LCP Poster Image - preloaded and rendered immediately */}
+      <picture className="absolute inset-0 h-full w-full">
+        <source
+          media="(max-width: 767px)"
+          srcSet="/images/hero-poster-mobile.webp"
+          type="image/webp"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcSet="/images/hero-poster.webp"
+          type="image/webp"
+        />
+        <img
+          src="/images/hero-poster.webp"
+          alt="NextGen Agency background"
+          loading="eager"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
+      </picture>
+
       <video
         autoPlay
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
+        poster="/images/hero-poster.webp"
         className="absolute inset-0 h-full w-full object-cover object-center"
-        style={{
-          animation: "videoFadeIn 1.4s ease-in-out 0.3s both",
-        }}
       >
+        <source
+          src="/videos/nextgen-mountain-work-mobile.mp4"
+          type="video/mp4"
+          media="(max-width: 767px)"
+        />
         <source src="/videos/nextgen-mountain-work.mp4" type="video/mp4" />
       </video>
 

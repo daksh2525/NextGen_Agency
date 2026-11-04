@@ -57,6 +57,8 @@ export function TeamSection() {
                   <img
                     src={member.photo}
                     alt={`${member.name} — ${member.designation}`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
