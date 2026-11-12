@@ -93,100 +93,103 @@ export default function Timeline({
 
   useGSAP(
     () => {
-      // On mobile viewports (< 768px), disable GSAP pinning so phone users enjoy smooth vertical native scrolling
-      if (typeof window !== "undefined" && window.innerWidth < 768) {
-        return;
-      }
+      // Use gsap.matchMedia for clean, responsive ScrollTrigger management
+      const mm = gsap.matchMedia();
 
-      const container = containerRef.current;
-      const track = trackRef.current;
-      const progressLine = progressLineRef.current;
-      if (!container || !track) return;
+      // Only enable GSAP ScrollTrigger pinning and horizontal scrub on desktop screens (>= 768px)
+      mm.add("(min-width: 768px)", () => {
+        const container = containerRef.current;
+        const track = trackRef.current;
+        const progressLine = progressLineRef.current;
+        if (!container || !track) return;
 
-      const getScrollAmount = () => {
-        const trackWidth = track.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        return Math.max(0, trackWidth - viewportWidth + 120);
-      };
+        const getScrollAmount = () => {
+          const trackWidth = track.scrollWidth;
+          const viewportWidth = window.innerWidth;
+          return Math.max(0, trackWidth - viewportWidth + 120);
+        };
 
-      const scrollAmount = getScrollAmount();
+        const scrollAmount = getScrollAmount();
 
-      // Main pin & horizontal translation timeline for desktop
-      const mainTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          pin: true,
-          scrub: 1,
-          start: "top top",
-          end: () => `+=${Math.max(scrollAmount * 1.2, 1400)}`,
-          invalidateOnRefresh: true,
-        },
+        // Main pin & horizontal translation timeline for desktop
+        const mainTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container,
+            pin: true,
+            scrub: 1,
+            start: "top top",
+            end: () => `+=${Math.max(scrollAmount * 1.2, 1400)}`,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        // Slide track horizontally
+        mainTl.to(track, {
+          x: () => -getScrollAmount(),
+          ease: "none",
+        });
+
+        // Fill progress line smoothly
+        if (progressLine) {
+          mainTl.to(
+            progressLine,
+            {
+              scaleX: 1,
+              ease: "none",
+            },
+            0
+          );
+        }
+
+        // Animate each milestone dot and card as the progress reaches it
+        steps.forEach((step, index) => {
+          const progressPoint = (index + 0.3) / steps.length;
+
+          mainTl.to(
+            `.dot-${step.id}`,
+            {
+              scale: 1.3,
+              backgroundColor: activeColor,
+              borderColor: "#ffffff",
+              boxShadow: `0 0 20px ${activeColor}80`,
+              duration: 0.08,
+              ease: "power1.out",
+            },
+            progressPoint
+          );
+
+          mainTl.to(
+            `.stem-${step.id}`,
+            {
+              backgroundColor: activeColor,
+              opacity: 1,
+              duration: 0.08,
+            },
+            progressPoint
+          );
+
+          mainTl.to(
+            `.card-${step.id}`,
+            {
+              borderColor: `${activeColor}60`,
+              backgroundColor: "rgba(25, 27, 31, 0.95)",
+              duration: 0.1,
+            },
+            progressPoint
+          );
+
+          mainTl.to(
+            `.badge-${step.id}`,
+            {
+              color: activeColor,
+              duration: 0.08,
+            },
+            progressPoint
+          );
+        });
       });
 
-      // Slide track horizontally
-      mainTl.to(track, {
-        x: () => -getScrollAmount(),
-        ease: "none",
-      });
-
-      // Fill progress line smoothly
-      if (progressLine) {
-        mainTl.to(
-          progressLine,
-          {
-            scaleX: 1,
-            ease: "none",
-          },
-          0
-        );
-      }
-
-      // Animate each milestone dot and card as the progress reaches it
-      steps.forEach((step, index) => {
-        const progressPoint = (index + 0.3) / steps.length;
-
-        mainTl.to(
-          `.dot-${step.id}`,
-          {
-            scale: 1.3,
-            backgroundColor: activeColor,
-            borderColor: "#ffffff",
-            boxShadow: `0 0 20px ${activeColor}80`,
-            duration: 0.08,
-            ease: "power1.out",
-          },
-          progressPoint
-        );
-
-        mainTl.to(
-          `.stem-${step.id}`,
-          {
-            backgroundColor: activeColor,
-            opacity: 1,
-            duration: 0.08,
-          },
-          progressPoint
-        );
-
-        mainTl.to(
-          `.card-${step.id}`,
-          {
-            borderColor: `${activeColor}60`,
-            backgroundColor: "rgba(25, 27, 31, 0.95)",
-            duration: 0.1,
-          },
-          progressPoint
-        );
-
-        mainTl.to(
-          `.badge-${step.id}`,
-          {
-            color: activeColor,
-            duration: 0.08,
-          },
-          progressPoint
-        );
-      });
+      return () => mm.revert();
     },
     { scope: containerRef, dependencies: [steps, activeColor] }
   );

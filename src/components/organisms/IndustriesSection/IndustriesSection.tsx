@@ -22,7 +22,7 @@ export function IndustriesSection() {
   return (
     <section
       id="industries"
-      className="bg-charcoal section-padding"
+      className="bg-charcoal section-padding scroll-mt-24"
       aria-labelledby="industries-heading"
     >
       <div className="container-site">

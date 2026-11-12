@@ -44,43 +44,61 @@ export function LiquidHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState(0);
   const isClickingRef = useRef(false);
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    let ticking = false;
+
     const onScroll = () => {
-      setScrolled(window.scrollY > 80);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 80);
 
-      // Prevent scrollspy from overriding while an in-page click scroll is in flight
-      if (isClickingRef.current) return;
-
-      // If near the top, highlight Home
-      if (window.scrollY < 180) {
-        setActive(0);
-        return;
-      }
-
-      // Check section bounding rects relative to viewport observation line
-      const targetY = 160;
-
-      for (const entry of sectionEntries) {
-        const el = document.getElementById(entry.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= targetY && rect.bottom > targetY) {
-            setActive(entry.index);
+          // Prevent scrollspy from overriding while an in-page click scroll is in flight
+          if (isClickingRef.current) {
+            ticking = false;
             return;
           }
-        }
+
+          // If near the top, highlight Home
+          if (window.scrollY < 180) {
+            setActive(0);
+            ticking = false;
+            return;
+          }
+
+          // Check section bounding rects relative to viewport observation line
+          const targetY = 160;
+
+          for (const entry of sectionEntries) {
+            const el = document.getElementById(entry.id);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.top <= targetY && rect.bottom > targetY) {
+                setActive(entry.index);
+                break;
+              }
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+    };
   }, []);
 
   const handleNavChange = (index: number) => {
     setActive(index);
     isClickingRef.current = true;
+    if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+
     const targetHash = links[index].href;
 
     if (window.location.pathname === "/") {
@@ -89,21 +107,21 @@ export function LiquidHeader() {
       } else {
         const targetEl = document.querySelector(targetHash);
         if (targetEl) {
-          const navOffset = 90;
-          const elementPosition = targetEl.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+          const navOffset = 85;
+          const rect = targetEl.getBoundingClientRect();
+          const offsetPosition = rect.top + window.scrollY - navOffset;
 
           window.scrollTo({
-            top: offsetPosition,
+            top: Math.max(0, offsetPosition),
             behavior: "smooth",
           });
         }
       }
 
       // Re-enable scrollspy after smooth scroll animation settles
-      setTimeout(() => {
+      clickTimeoutRef.current = setTimeout(() => {
         isClickingRef.current = false;
-      }, 850);
+      }, 900);
       return;
     }
 
@@ -112,21 +130,23 @@ export function LiquidHeader() {
 
   const handleContactClick = () => {
     isClickingRef.current = true;
+    if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+
     if (window.location.pathname === "/") {
       const contactEl = document.querySelector("#contact");
       if (contactEl) {
-        const navOffset = 90;
-        const elementPosition = contactEl.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+        const navOffset = 85;
+        const rect = contactEl.getBoundingClientRect();
+        const offsetPosition = rect.top + window.scrollY - navOffset;
 
         window.scrollTo({
-          top: offsetPosition,
+          top: Math.max(0, offsetPosition),
           behavior: "smooth",
         });
 
-        setTimeout(() => {
+        clickTimeoutRef.current = setTimeout(() => {
           isClickingRef.current = false;
-        }, 850);
+        }, 900);
         return;
       }
     }

@@ -110,7 +110,7 @@ const NIMBUS_CSS = `
 @keyframes nvWave{0%{transform:none}20%{transform:rotate(-15deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(4deg)}100%{transform:translateY(-1px) scale(1.08)}}
 .nimbus-nav[data-compact="true"] .nimbus-item{padding:0 13px}
 .nimbus-nav[data-compact="true"] .nimbus-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-@media (max-width:520px){.nimbus-nav:not([data-compact="false"]) .nimbus-item{padding:0 13px}.nimbus-nav:not([data-compact="false"]) .nimbus-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+@media (max-width:520px){.nimbus-nav:not([data-compact="false"]) .nimbus-item{padding:0 9px;height:38px}.nimbus-nav:not([data-compact="false"]) .nimbus-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
 @media (prefers-reduced-motion:reduce){.nv-ico svg,.nv-ico::before,.nv-ico::after,.nv-door{animation:none!important;transition:none}}
 `
 
@@ -372,8 +372,9 @@ export function LiquidNavbar({
       step(dt, now)
       draw()
       const busy = s.moving || s.rips.length || s.sats.length || s.mouse.s > 0.01
-      // ambient water keeps moving while visible; reduced-motion only animates on change
-      if (s.visible && (!s.reduce || busy)) s.raf = requestAnimationFrame(tick)
+      // Ambient WebGL water only keeps animating on desktop when visible; CSS drop only animates when busy
+      const shouldLoop = s.visible && (s.glc ? (!s.reduce || busy) : busy)
+      if (shouldLoop) s.raf = requestAnimationFrame(tick)
       else s.raf = 0
     }
     s.raf = requestAnimationFrame(tick)
@@ -422,8 +423,20 @@ export function LiquidNavbar({
     const s = st.current
     s.reduce = !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
     const cv = canvasRef.current
-    s.glc = cv ? initGL(cv) : null
-    if (!s.glc) setGl("off")
+
+    // On mobile viewports or touch devices, disable WebGL shader to save GPU memory and eliminate touch lag
+    const isMobileDevice =
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches)
+
+    if (isMobileDevice) {
+      setGl("off")
+      s.glc = null
+    } else {
+      s.glc = cv ? initGL(cv) : null
+      if (!s.glc) setGl("off")
+    }
+
     const lost = (e: Event) => { e.preventDefault(); s.glc = null; setGl("off") }
     cv?.addEventListener("webglcontextlost", lost)
     const io = new IntersectionObserver(([e]) => { s.visible = e.isIntersecting; if (s.visible) loop() })
@@ -554,7 +567,10 @@ export function LiquidNavbar({
           ref: (el: HTMLElement | null) => { itemRefs.current[i] = el },
           className: "nimbus-item",
           "aria-current": i === current ? ("page" as const) : undefined,
-          onClick: () => select(i),
+          onClick: (e: React.MouseEvent) => {
+            e.preventDefault()
+            select(i)
+          },
         }
         const content = (
           <>

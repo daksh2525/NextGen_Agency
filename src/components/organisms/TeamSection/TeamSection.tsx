@@ -24,7 +24,7 @@ export function TeamSection() {
   return (
     <section
       id="team"
-      className="bg-charcoal section-padding"
+      className="bg-charcoal section-padding scroll-mt-24"
       aria-labelledby="team-heading"
     >
       <div className="container-site">

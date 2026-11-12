@@ -48,7 +48,7 @@ export function ServicesGrid() {
     <section
       id="services"
       ref={sectionRef}
-      className="bg-charcoal py-16 sm:py-20 lg:py-24 text-white relative overflow-hidden"
+      className="bg-charcoal py-16 sm:py-20 lg:py-24 text-white relative overflow-hidden scroll-mt-24"
       aria-labelledby="services-heading"
     >
       <div className="container-site">

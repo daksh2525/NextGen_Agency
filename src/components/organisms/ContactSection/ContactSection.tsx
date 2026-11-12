@@ -13,7 +13,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="bg-charcoal py-16 sm:py-20 lg:py-24 relative overflow-hidden"
+      className="bg-charcoal py-16 sm:py-20 lg:py-24 relative overflow-hidden scroll-mt-24"
       aria-labelledby="contact-heading"
     >
       <div className="container-site">

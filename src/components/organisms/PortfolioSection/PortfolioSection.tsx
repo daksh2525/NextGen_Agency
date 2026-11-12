@@ -18,7 +18,7 @@ export function PortfolioSection() {
   return (
     <section
       id="portfolio"
-      className="bg-[#111111] section-padding"
+      className="bg-[#111111] section-padding scroll-mt-24"
       aria-labelledby="portfolio-heading"
     >
       <div className="container-site">

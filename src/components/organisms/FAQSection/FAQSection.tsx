@@ -14,7 +14,7 @@ export function FAQSection() {
   return (
     <section
       id="faq"
-      className="bg-charcoal section-padding"
+      className="bg-charcoal section-padding scroll-mt-24"
       aria-labelledby="faq-heading"
     >
       <div className="container-site">

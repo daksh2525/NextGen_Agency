@@ -19,11 +19,11 @@ export const SPRING_SLOW = { stiffness: 60, damping: 20, mass: 1 };
 
 /** Fade up — most common entrance animation */
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: EASE_OUT_CUBIC },
+    transition: { duration: 0.5, ease: EASE_OUT_CUBIC },
   },
 };
 
@@ -130,5 +130,8 @@ export const mobileMenuVariants: Variants = {
   },
 };
 
-/** Viewport animation config — used with whileInView */
-export const VIEWPORT_ONCE = { once: true, margin: "-80px" } as const;
+/** Viewport animation config — used with whileInView.
+ * Mobile-optimized with a small threshold so cards and sections reveal
+ * immediately without leaving black/invisible blanks on touch screens.
+ */
+export const VIEWPORT_ONCE = { once: true, amount: 0.05, margin: "0px 0px -20px 0px" } as const;
