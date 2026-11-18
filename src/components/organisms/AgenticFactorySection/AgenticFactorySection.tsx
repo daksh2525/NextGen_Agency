@@ -185,7 +185,7 @@ export function AgenticFactorySection() {
 
           {/* 3D Scene Viewport */}
           <div className="relative w-full h-[600px] lg:h-[700px]">
-            <AgenticFactory3D height="100%" embed={true} />
+            <AgenticFactory3D height="100%" embed={false} />
           </div>
         </motion.div>
 
@@ -209,7 +209,7 @@ export function AgenticFactorySection() {
                 </button>
               </div>
               <div className="w-full h-[420px] relative">
-                <AgenticFactory3D height="100%" embed={true} />
+                <AgenticFactory3D height="100%" embed={false} />
               </div>
             </div>
           ) : (
