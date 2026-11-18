@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { HeroSection } from '@/components/organisms/HeroSection';
 import { ServicesGrid } from '@/components/organisms/ServicesGrid';
 import { WhyChooseUs } from '@/components/organisms/WhyChooseUs';
+import { WorkflowFeaturesSection } from '@/components/organisms/WorkflowFeaturesSection';
 import { ProcessSection } from '@/components/organisms/ProcessSection';
 import { AgenticFactorySection } from '@/components/organisms/AgenticFactorySection';
 import { PortfolioSection } from '@/components/organisms/PortfolioSection';
@@ -23,6 +24,7 @@ export default function HomePage() {
       <HeroSection />
       <ServicesGrid />
       <WhyChooseUs />
+      <WorkflowFeaturesSection />
       <ProcessSection />
       <AgenticFactorySection />
       <PortfolioSection />

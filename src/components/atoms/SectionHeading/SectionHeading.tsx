@@ -89,6 +89,7 @@ export function SectionHeading({
       initial="hidden"
       whileInView="visible"
       viewport={VIEWPORT_ONCE}
+      className="w-full"
     >
       {content}
     </motion.div>
